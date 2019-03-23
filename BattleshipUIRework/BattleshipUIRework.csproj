@@ -117,5 +117,8 @@
     <Resource Include="Icons\close.png" />
     <Resource Include="Icons\minimize.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="OLD\loading.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
