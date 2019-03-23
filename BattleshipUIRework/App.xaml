@@ -4,9 +4,6 @@
              StartupUri="Views/LoginWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-
-            <Color x:Key="HighlightColor">#FF101D29</Color>
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
