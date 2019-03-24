@@ -25,7 +25,7 @@ namespace BattleshipUIRework
             InitializeComponent();
         }
 
-
+        #region buttons
         private void CloseBtn_Clicked(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -42,5 +42,6 @@ namespace BattleshipUIRework
             main.Show();
             this.Close();
         }
+        #endregion
     }
 }

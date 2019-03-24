@@ -13,9 +13,10 @@ namespace BattleshipClient
 {
     public static class HttpBattleshipClient
     {
+        //Adjust uri accordingly
         private static readonly Uri uri = new Uri("http://79.196.243.149:8080");
 
-        #region user login interface
+        #region login related methods
             
         /// <summary>
         /// submits the user data and returns the status received from the server
@@ -115,7 +116,7 @@ namespace BattleshipClient
 
         #endregion
 
-        #region client server communication
+        #region pre-match related methods
 
         /// <summary>
         /// places the user with the username in a match queue
@@ -230,8 +231,11 @@ namespace BattleshipClient
             }
             return (status, message);
         }
-        
-        
+
+        #endregion
+
+        #region ingame related methods
+
         /// <summary>
         /// submits the shots fired 
         /// </summary>
