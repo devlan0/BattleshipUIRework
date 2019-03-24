@@ -38,8 +38,7 @@ namespace BattleshipUIRework.Views
 
         private void RegisterBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(viewModel.Username);
-            //Window.GetWindow(this).DataContext = new RegisterViewModel();
+            Window.GetWindow(this).DataContext = new RegisterViewModel();
         }
 
     }
