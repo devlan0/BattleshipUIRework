@@ -16,7 +16,7 @@ namespace BattleshipUIRework
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            ThemeManager.AddAccent("AccentBaseColorBrush", new Uri("pack://application:,,,/BattleshipUIRework;component/Views/AppStyle.xaml"));
+            ThemeManager.AddAccent("AccentBaseColorBrush", new Uri("pack://application:,,,/BattleshipUIRework;component/Styles/AppStyle.xaml"));
             Tuple <AppTheme, Accent> theme = ThemeManager.DetectAppStyle(Current);
             ThemeManager.ChangeAppStyle(Current, ThemeManager.GetAccent("AccentBaseColorBrush"), theme.Item1);
             base.OnStartup(e);
