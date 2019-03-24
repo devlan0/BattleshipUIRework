@@ -7,7 +7,6 @@
         xmlns:viewmodels="clr-namespace:BattleshipUIRework.ViewModels"
         xmlns:views="clr-namespace:BattleshipUIRework.Views"
         mc:Ignorable="d"
-        Title="Login" 
         Height="395" 
         Width="300" 
         MinWidth="300" 

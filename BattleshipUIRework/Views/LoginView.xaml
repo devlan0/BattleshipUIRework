@@ -32,11 +32,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Image Source="Icons/battleship.png" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="64" Height="64" RenderTransformOrigin="-0.97,-1.196" Stretch="Fill" MaxWidth="64" MaxHeight="64" Margin="28,0,28,29"/>
-        <Label Content="Battleships" Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="20" FontFamily="Rockwell Extra Bold" Margin="16,32,16,0" Grid.RowSpan="2"/>
-        <TextBox Controls:TextBoxHelper.Watermark="Username" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="0,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="180"/>
-        <PasswordBox Controls:TextBoxHelper.Watermark="Password" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Left" Height="23" Grid.Row="5" VerticalAlignment="Top" Width="180" Margin="0,6,0,0"/>
-        <Button Grid.ColumnSpan="6" Content="Log In" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Center" Width="179" IsCancel="True" Background="#FFDE0424" BorderBrush="{x:Null}" Foreground="White" Height="24" Click="LoginBtn_Clicked" Margin="0,6"/>
-        <Button Grid.ColumnSpan="4" Content="Don't have an account?" Grid.Column="4" Grid.Row="6" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="8" MaxHeight="10" Margin="0,36,0,0" Height="11" HorizontalAlignment="Right" Width="109" MinHeight="11" Padding="0" Grid.RowSpan="2" Click="RegisterBtn_Clicked"/>
+        <Label Content="Battleships" Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="20" FontFamily="Rockwell Extra Bold" Grid.RowSpan="2"/>
+        <TextBox Controls:TextBoxHelper.Watermark="Username" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Grid.Row="3" VerticalAlignment="Center" Width="180"/>
+        <PasswordBox Controls:TextBoxHelper.Watermark="Password" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Grid.Row="4" VerticalAlignment="Center" Width="180"/>
+        <Button Grid.ColumnSpan="6" Content="Log In" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" Width="179" IsCancel="True" Background="#FFDE0424" BorderBrush="{x:Null}" Foreground="White" Height="24" Click="LoginBtn_Clicked" />
+        <Button Grid.ColumnSpan="4" Content="Don't have an account?" Grid.Column="4" Grid.Row="5" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="8" MaxHeight="10" Height="11" HorizontalAlignment="Right" Width="109" MinHeight="11" Padding="0" Grid.RowSpan="2" Click="RegisterBtn_Clicked" Margin="0,35,1,0"/>
 
     </Grid>
 </UserControl>
