@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BattleshipUIRework.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace BattleshipUIRework.Views
         public RegisterView()
         {
             InitializeComponent();
+        }
+
+        private void RegisterBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AccExistsBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).DataContext = new LoginViewModel();
         }
     }
 }
