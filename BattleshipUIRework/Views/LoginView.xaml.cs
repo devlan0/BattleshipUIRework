@@ -21,8 +21,11 @@ namespace BattleshipUIRework.Views
     /// </summary>
     public partial class LoginView : UserControl
     {
+        private LoginViewModel viewModel;
+
         public LoginView()
         {
+            viewModel = new LoginViewModel();
             InitializeComponent();
         }
 
@@ -35,7 +38,8 @@ namespace BattleshipUIRework.Views
 
         private void RegisterBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).DataContext = new RegisterViewModel();
+            Console.WriteLine(viewModel.Username);
+            //Window.GetWindow(this).DataContext = new RegisterViewModel();
         }
 
     }
