@@ -1,10 +1,10 @@
-﻿<Window x:Class="BattleshipUI.MainWindow"
+﻿<Window x:Class="BattleshipUIRework.MainWindowOld"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
-        xmlns:local="clr-namespace:BattleshipUI"
+        xmlns:local="clr-namespace:BattleshipUIRework"
         mc:Ignorable="d"
         Title="Battleship!" Height="1080" Width="1920" WindowState="Maximized" Background="#241418">
     <Window.Resources>
@@ -61,7 +61,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="usernameBlock" Grid.Column="3" Grid.Row="3" TextWrapping="Wrap" Text="Username" Grid.ColumnSpan="4" Foreground="White" FontFamily="Calibri Light" FontSize="72" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="0" Width="500" TextAlignment="Center"/>
-        <TextBox x:Name="usernameBox" TextWrapping="Wrap" FontFamily="Calibri Light" FontSize="36" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Grid.ColumnSpan="4" Grid.Column="3" Grid.Row="4" Margin="10,58,10,0" TextChanged="UsernameBox_TextChanged">
+        <TextBox x:Name="usernameBox" TextWrapping="Wrap" FontFamily="Calibri Light" FontSize="36" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalScrollBarVisibility="Disabled" UseLayoutRounding="False" Grid.ColumnSpan="4" Grid.Column="3" Grid.Row="4" Margin="10,58,10,0">
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="20" />
@@ -76,13 +76,13 @@
                 </Style>
             </PasswordBox.Resources>
         </PasswordBox>
-        <Button x:Name="button" Grid.Column="6" Grid.Row="7" Grid.ColumnSpan="3" Click="Button_Click" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="#FF241418" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri Light" FontSize="72">
+        <Button x:Name="button" Grid.Column="6" Grid.Row="7" Grid.ColumnSpan="3" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="#FF241418" BorderBrush="{x:Null}" Foreground="White" FontFamily="Calibri Light" FontSize="72">
             <Button.Effect>
                 <DropShadowEffect ShadowDepth="0" Direction="0" BlurRadius="20"/>
             </Button.Effect>
             <TextBlock TextAlignment="Center" IsHyphenationEnabled="True">Anmelden</TextBlock>
         </Button>
-        <Image x:Name="image" Margin="5,10,5,0" Grid.Row="6" Grid.RowSpan="4" Grid.ColumnSpan="6" gif:AnimationBehavior.SourceUri="D:\Stuff\Programming\Battleship\BattleshipUI\BattleshipUI\BattleshipUI\img\loading.gif"/>
+        <Image x:Name="image" Margin="5,10,5,0" Grid.Row="6" Grid.RowSpan="4" Grid.ColumnSpan="6" gif:AnimationBehavior.SourceUri="/img/loading.gif"/>
 
     </Grid>
 </Window>

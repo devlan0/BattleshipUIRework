@@ -13,11 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BattleshipClient;
 
-namespace BattleshipUI
+namespace BattleshipUIRework
 {
-    public partial class MainWindow : Window
+    public partial class MainWindowOld : Window
     {
         private static Player player1;
         private static SolidColorBrush _colorPlayer1 = new SolidColorBrush(Color.FromArgb(255, 110, 90, 125));
@@ -43,7 +42,7 @@ namespace BattleshipUI
         /// <summary>
         /// Main Window
         /// </summary>
-        public MainWindow()
+        public MainWindowOld()
         {
             InitializeComponent();
         }
@@ -331,20 +330,6 @@ namespace BattleshipUI
 */
         #endregion
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void UsernameBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 
     //Playerclass, handles everything playerbased (like individual fields, colors etc.)
