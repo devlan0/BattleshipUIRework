@@ -33,11 +33,12 @@
         </Grid.RowDefinitions>
         
         <Label Content="Register" Grid.Column="2" Grid.ColumnSpan="6" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="20" FontFamily="Rockwell Extra Bold" Grid.RowSpan="2"/>
-        <TextBox Controls:TextBoxHelper.Watermark="Username" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Margin="0,3,0,0" Grid.Row="2" VerticalAlignment="Center" Width="180"/>
-        <TextBox Controls:TextBoxHelper.Watermark="Email" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Grid.Row="3" VerticalAlignment="Center" Width="180"/>
-        <PasswordBox Controls:TextBoxHelper.Watermark="Password" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Grid.Row="4" VerticalAlignment="Center" Width="180" />
-        <PasswordBox Controls:TextBoxHelper.Watermark="Repeat Password" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Grid.Row="5" VerticalAlignment="Center" Width="180" />
+        <TextBox Name="UsrTxtBox" Controls:TextBoxHelper.Watermark="Username" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Margin="0,3,0,0" Grid.Row="2" VerticalAlignment="Center" Width="180"/>
+        <TextBox Name="EmailTxtBox" Controls:TextBoxHelper.Watermark="Email" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Grid.Row="3" VerticalAlignment="Center" Width="180"/>
+        <PasswordBox Name="PwdTxtBox" Controls:TextBoxHelper.Watermark="Password" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Grid.Row="4" VerticalAlignment="Center" Width="180" />
+        <PasswordBox Name="PwdRepeatTxtBox" Controls:TextBoxHelper.Watermark="Repeat Password" Grid.ColumnSpan="6" Grid.Column="2" HorizontalAlignment="Center" Height="23" Grid.Row="5" VerticalAlignment="Center" Width="180" />
         <Button Grid.ColumnSpan="6" Content="Register" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Bottom" Width="179" IsCancel="True" Background="#FFDE0424" BorderBrush="{x:Null}" Foreground="White" Height="24" Click="RegisterBtn_Clicked"  />
         <Button Grid.ColumnSpan="5" Content="Already have an account?" Grid.Column="3" Grid.Row="7" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontSize="8" MaxHeight="10" Margin="0,1,3,0" Height="11" HorizontalAlignment="Right" Width="120" MinHeight="11" Padding="0" Click="AccExistsBtn_Clicked" HorizontalContentAlignment="Right"/>
+        <Label Name="ErrorLabel" Content="" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Bottom" Grid.ColumnSpan="6" Width="180" Foreground="Red"/>
     </Grid>
 </UserControl>

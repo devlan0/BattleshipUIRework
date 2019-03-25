@@ -30,19 +30,18 @@ namespace BattleshipUIRework.Views
 
         private async void LoginBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            string status;
+            string status = "";
             string message = "Error connecting to server";
-            string token;
+            string token = "";
             using (SHA256 hashAlg = SHA256.Create())
             {
                 (status, message, token) = await HttpBattleshipClient.Login(UsrTextBox.Text, hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTextBox.Password)));
             }
-            if(status.Equals("Success"))
+            if(status.Equals("success"))
             {
                 MainWindow main = new MainWindow();
                 Window.GetWindow(this).Close();
                 main.Show();
-                Console.WriteLine(token);
             }
             else
             {

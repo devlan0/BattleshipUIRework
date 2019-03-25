@@ -1,7 +1,10 @@
-﻿using System;
+﻿using BattleshipUIRework.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,14 +28,66 @@ namespace BattleshipUIRework.Views
             InitializeComponent();
         }
 
-        private void RegisterBtn_Clicked(object sender, RoutedEventArgs e)
+        private async void RegisterBtn_Clicked(object sender, RoutedEventArgs e)
         {
+            string status = "";
+            string message = "Error connecting to server";
+            string token = "";
 
+            if (!EmailValid(EmailTxtBox.Text))
+            {
+                message = "Email invalid!";
+            }
+            else if (!PasswordValid(PwdTxtBox.Password))
+            {
+                message = "Password invalid!";
+            }
+            else if (!PwdTxtBox.Password.Equals(PwdRepeatTxtBox.Password))
+            {
+                message = "Passwords do not match!";
+            }
+            else
+            {
+                using (SHA256 hashAlg = SHA256.Create())
+                {
+                    byte[] hashedPw = hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTxtBox.Password));
+                    (status, message, token) = await HttpBattleshipClient.Register(UsrTxtBox.Text, EmailTxtBox.Text, hashedPw);
+                }
+            }
+            if (status.Equals("success"))
+            {
+                Console.WriteLine("Registration successful");
+                MainWindow main = new MainWindow();
+                Window.GetWindow(this).Close();
+                main.Show();
+            }
+            ErrorLabel.Content = message;
         }
 
         private void AccExistsBtn_Clicked(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).DataContext = new LoginView();
+        }
+
+        private bool EmailValid(string email)
+        {
+            Regex rx = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
+                                 + "@" + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
+            if (!rx.IsMatch(email))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool PasswordValid(string password)
+        {
+            Regex rx = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,15}$");
+            if (!rx.IsMatch(password))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
