@@ -11,13 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BattleshipUIRework.ViewModels;
+using MahApps.Metro.Controls;
 
 namespace BattleshipUIRework
 {
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginWindow : MetroWindow
     {
         public LoginWindow()
         {
@@ -27,11 +29,6 @@ namespace BattleshipUIRework
         private void CloseBtn_Clicked(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void MinimizeBtn_Clicked(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
         }
     }
 }
