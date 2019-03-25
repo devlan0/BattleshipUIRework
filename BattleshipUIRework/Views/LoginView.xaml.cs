@@ -46,8 +46,7 @@ namespace BattleshipUIRework.Views
             }
             else
             {
-                Console.WriteLine("Message from server: " + message);
-                ErrorLabel.Content = status;
+                ErrorLabel.Content = message;
             }
             
         }
