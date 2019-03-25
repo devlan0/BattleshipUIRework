@@ -82,7 +82,7 @@ namespace BattleshipUIRework.Views
 
         private bool PasswordValid(string password)
         {
-            Regex rx = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,15}$");
+            Regex rx = new Regex("^.{8,88}$");
             if (!rx.IsMatch(password))
             {
                 return false;
