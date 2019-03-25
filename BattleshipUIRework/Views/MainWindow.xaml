@@ -1,12 +1,51 @@
-﻿<Window x:Class="BattleshipUIRework.MainWindow"
+﻿<Controls:MetroWindow x:Class="BattleshipUIRework.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BattleshipUIRework"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:views="clr-namespace:BattleshipUIRework.Views"
+        mc:Ignorable="d" 
+        Visibility="Visible"
+        ResizeMode="CanMinimize"
+        GlowBrush="#FF101D29"
+        LeftWindowCommandsOverlayBehavior="Never" RightWindowCommandsOverlayBehavior="Never" WindowTransitionsEnabled="False" 
+        Title="MainWindow" Height="577" Width="1024" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Row="0" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="10">
+            <ContentControl.Content>
+                <Binding>
+                    <Binding.TargetNullValue>
+                        <views:BeforeQueueView/>
+                    </Binding.TargetNullValue>
+                </Binding>
+            </ContentControl.Content>
+        </ContentControl>
     </Grid>
-</Window>
+</Controls:MetroWindow>
+

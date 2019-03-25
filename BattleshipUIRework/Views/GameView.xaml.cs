@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MahApps.Metro.Controls;
 
-namespace BattleshipUIRework
+namespace BattleshipUIRework.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for GameView.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class GameView : UserControl
     {
-        public MainWindow()
+        public GameView()
         {
             InitializeComponent();
-        }
-        private void CloseBtn_Clicked(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }
