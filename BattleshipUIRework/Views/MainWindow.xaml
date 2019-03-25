@@ -7,7 +7,6 @@
         xmlns:views="clr-namespace:BattleshipUIRework.Views"
         mc:Ignorable="d" 
         Visibility="Visible"
-        ResizeMode="CanMinimize"
         GlowBrush="#FF101D29"
         LeftWindowCommandsOverlayBehavior="Never" RightWindowCommandsOverlayBehavior="Never" WindowTransitionsEnabled="False" 
         Title="MainWindow" Height="577" Width="1024" WindowStartupLocation="CenterScreen">
