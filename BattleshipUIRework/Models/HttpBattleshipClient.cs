@@ -9,12 +9,12 @@ using System.Net.Http.Headers;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 
-namespace BattleshipClient
+namespace BattleshipUIRework.Models
 {
     public static class HttpBattleshipClient
     {
         //Adjust uri accordingly
-        private static readonly Uri uri = new Uri("http://79.196.243.149:8080");
+        private static readonly Uri uri = new Uri("http://79.196.240.157:80");
 
         #region login related methods
             
@@ -97,6 +97,7 @@ namespace BattleshipClient
                     response.EnsureSuccessStatusCode();
                     string server_json = await response.Content.ReadAsStringAsync();
                     JObject jobj = JObject.Parse(server_json);
+                    Console.WriteLine("Json object: " + jobj);
                     status = jobj.Property("status")?.Value?.ToString();
                     if (status.Equals("success"))
                     {

@@ -10,29 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
-namespace BattleshipUIRework.Views
+namespace BattleshipUIRework
 {
     /// <summary>
-    /// Interaction logic for RegisterView.xaml
+    /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class RegisterView : UserControl
+    public partial class LoginWindow : MetroWindow
     {
-        public RegisterView()
+        public LoginWindow()
         {
             InitializeComponent();
         }
 
-        private void RegisterBtn_Clicked(object sender, RoutedEventArgs e)
+        private void CloseBtn_Clicked(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void AccExistsBtn_Clicked(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this).DataContext = new LoginView();
+            this.Close();
         }
     }
 }

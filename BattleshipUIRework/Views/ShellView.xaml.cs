@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,24 +13,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BattleshipUIRework.ViewModels;
-using MahApps.Metro.Controls;
 
-namespace BattleshipUIRework
+namespace BattleshipUIRework.Views
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for ShellView.xaml
     /// </summary>
-    public partial class LoginWindow : MetroWindow
+    public partial class ShellView : MetroWindow
     {
-        public LoginWindow()
+        public ShellView()
         {
             InitializeComponent();
-        }
-
-        private void CloseBtn_Clicked(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }
