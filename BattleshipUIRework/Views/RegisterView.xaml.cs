@@ -57,7 +57,7 @@ namespace BattleshipUIRework.Views
             if (status.Equals("success"))
             {
                 Console.WriteLine("Registration successful");
-                MainWindow main = new MainWindow();
+                MainWindow main = new MainWindow(UsrTxtBox.Text, token);
                 Window.GetWindow(this).Close();
                 main.Show();
             }

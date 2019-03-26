@@ -40,7 +40,7 @@
             <ContentControl.Content>
                 <Binding>
                     <Binding.TargetNullValue>
-                        <views:BeforeQueueView/>
+                        <views:QueueView />
                     </Binding.TargetNullValue>
                 </Binding>
             </ContentControl.Content>

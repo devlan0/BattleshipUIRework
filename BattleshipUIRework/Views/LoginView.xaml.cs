@@ -33,13 +33,15 @@ namespace BattleshipUIRework.Views
             string status = "";
             string message = "Error connecting to server";
             string token = "";
-            using (SHA256 hashAlg = SHA256.Create())
+            // Testing Purposes
+            /*using (SHA256 hashAlg = SHA256.Create())
             {
                 (status, message, token) = await HttpBattleshipClient.Login(UsrTextBox.Text, hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTextBox.Password)));
-            }
+            }*/
+            status = "success";
             if(status.Equals("success"))
             {
-                MainWindow main = new MainWindow();
+                MainWindow main = new MainWindow(UsrTextBox.Text, token);
                 Window.GetWindow(this).Close();
                 main.Show();
             }
