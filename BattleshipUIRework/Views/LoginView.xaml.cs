@@ -48,7 +48,6 @@ namespace BattleshipUIRework.Views
             {
                 ErrorLabel.Content = message;
             }
-            
         }
 
         private void RegisterBtn_Clicked(object sender, RoutedEventArgs e)

@@ -172,7 +172,6 @@ namespace BattleshipUIRework.Models
                     HttpResponseMessage response = await client.GetAsync(uri + "/withVal/matchFound");
                     response.EnsureSuccessStatusCode();
                     string server_json = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Server json: " + server_json);
                     JObject jobj = JObject.Parse(server_json);
                     status = jobj.Property("status")?.Value?.ToString();
                     message = jobj.Property("message")?.Value?.ToString();

@@ -32,17 +32,14 @@ namespace BattleshipUIRework.Views
             {
                 //Check if match found
                 status = "";
-                string matchId = "";
-                int[] map = null;
-                string opponent = "";
 
                 while(!status.Equals("success") && !_stopBtn_clicked)
                 {
-                    (status, message, matchId, map, opponent) = await HttpBattleshipClient.Queue(MainWindow._username, MainWindow._token);
+                    (status, message, MainWindow._matchid, MainWindow._playerMap, MainWindow._opponent) = await HttpBattleshipClient.Queue(MainWindow._username, MainWindow._token);
                     if (status.Equals("success"))
                     {
                         Console.WriteLine("Status: {0} Message: {1}", status, message);
-                        Console.WriteLine("Your opponent: {0}", opponent);
+                        Console.WriteLine("Your opponent: {0}", MainWindow._opponent);
                         Window.GetWindow(this).DataContext = new GameView();
                     }
                     else
@@ -60,46 +57,5 @@ namespace BattleshipUIRework.Views
         {
             _stopBtn_clicked = true;
         }
-
-        /*
-        private async void QueueLoop()
-        {
-            string status = "";
-            string message = "Error connecting to Server.";
-            
-            //Update UI
-
-            while(!status.Equals("success") && !_status)
-            {
-
-                (status, message) = await HttpBattleshipClient.QueueMatch(MainWindow._username, MainWindow._token);
-                //Testing Purposes
-                //status = "success";
-                if (status.Equals("success"))
-                {
-                    MatchFound();
-                }
-                else
-                {
-                    ErrorLabel.Content = message;
-                }
-                Thread.Sleep(2000);
-            }
-        }
-        private async void MatchFound()
-        {
-            string status = "";
-            string message = "Error connecting to Server.";
-
-            (status, message, MainWindow._matchid, MainWindow._playerMap, MainWindow._opponent) = await HttpBattleshipClient.MatchFound(MainWindow._username, MainWindow._token);
-            if (status.Equals("success"))
-            {
-                Window.GetWindow(this).DataContext = new GameView();
-            }
-            else
-            {
-                ErrorLabel.Content = message;
-            }
-        }*/
     }
 }
