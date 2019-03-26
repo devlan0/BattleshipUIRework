@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="BattleshipUIRework.Views.QueueView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+            xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+            Width="1024" Height="577"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid Background="#FF101D29">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Content="Start Queue" Grid.Column="3" Grid.Row="4" VerticalAlignment="Stretch" IsCancel="True" Background="#FFDE0424" BorderBrush="{x:Null}" Foreground="White" Click="StartQueueBtn_Clicked" Margin="10" Grid.ColumnSpan="4" Grid.RowSpan="2" />
+        <Label Name="ErrorLabel" Content="" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="7" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Width="185" Foreground="Red" Margin="10" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"/>
+        <Controls:ProgressRing x:Name="ProgressRing" IsActive="False" Grid.ColumnSpan="2" Grid.Column="4" Margin="10" Grid.Row="7" Grid.RowSpan="2" Foreground="#CCFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Controls:ProgressRing>
+        <Image x:Name="image" Grid.ColumnSpan="2" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Stretch" gif:AnimationBehavior.SourceUri="../Icons/loading.gif" />
+    </Grid>
+</UserControl>

@@ -60,7 +60,7 @@ namespace BattleshipUIRework.Views
             {
                 //Switch to main window if remote validation successful
                 Console.WriteLine("Registration successful");
-                MainWindow main = new MainWindow();
+                MainWindow main = new MainWindow(UsrTxtBox.Text, token);
                 Window.GetWindow(this).Close();
                 main.Show();
             }

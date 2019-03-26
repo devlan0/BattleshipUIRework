@@ -64,14 +64,17 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="XamlAnimatedGif, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XamlAnimatedGif.1.2.1\lib\net45\XamlAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\BeforeQueueView.xaml.cs">
-      <DependentUpon>BeforeQueueView.xaml</DependentUpon>
+    <Compile Include="Views\QueueView.xaml.cs">
+      <DependentUpon>QueueView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\BuildView.xaml.cs">
       <DependentUpon>BuildView.xaml</DependentUpon>
@@ -88,7 +91,7 @@
     <Compile Include="Views\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\BeforeQueueView.xaml">
+    <Page Include="Views\QueueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
