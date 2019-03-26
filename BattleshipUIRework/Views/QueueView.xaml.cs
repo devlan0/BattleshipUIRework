@@ -11,22 +11,57 @@ namespace BattleshipUIRework.Views
     /// </summary>
     public partial class QueueView : UserControl
     {
-        private static bool _status = false;
+        //Umbenennen
+        private static bool _stopBtn_clicked = false;
         public QueueView()
         {
             InitializeComponent();
         }
 
-        private void StartQueueBtn_Clicked(object sender, RoutedEventArgs e)
+        private async void StartQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            QueueLoop();
+            string status = "";
+            string message = "Error connecting to server.";
+
+            //Place user in queue
+            Console.WriteLine("User: {0} Token: {1}", MainWindow._username, MainWindow._token);
+            (status, message) = await HttpBattleshipClient.Enqueue(MainWindow._username, MainWindow._token);
+            Console.WriteLine("Checkpoint");
+
+            if (status.Equals("success"))
+            {
+                //Check if match found
+                status = "";
+                string matchId = "";
+                int[] map = null;
+                string opponent = "";
+
+                while(!status.Equals("success") && !_stopBtn_clicked)
+                {
+                    (status, message, matchId, map, opponent) = await HttpBattleshipClient.Queue(MainWindow._username, MainWindow._token);
+                    if (status.Equals("success"))
+                    {
+                        Console.WriteLine("Status: {0} Message: {1}", status, message);
+                        Console.WriteLine("Your opponent: {0}", opponent);
+                        Window.GetWindow(this).DataContext = new GameView();
+                    }
+                    else
+                    {
+                        Thread.Sleep(1000);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Status: {0}, Message: {1}", status, message);
+            }
         }
         private void StopQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            _status = true;
+            _stopBtn_clicked = true;
         }
 
-
+        /*
         private async void QueueLoop()
         {
             string status = "";
@@ -39,7 +74,7 @@ namespace BattleshipUIRework.Views
 
                 (status, message) = await HttpBattleshipClient.QueueMatch(MainWindow._username, MainWindow._token);
                 //Testing Purposes
-                status = "success";
+                //status = "success";
                 if (status.Equals("success"))
                 {
                     MatchFound();
@@ -65,6 +100,6 @@ namespace BattleshipUIRework.Views
             {
                 ErrorLabel.Content = message;
             }
-        }
+        }*/
     }
 }

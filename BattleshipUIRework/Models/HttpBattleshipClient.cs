@@ -124,7 +124,7 @@ namespace BattleshipUIRework.Models
         /// <param name="username">username of the user</param>
         /// <param name="token">token assigned to the user after login</param>
         /// <returns>Returns a string tuple consisting of the status and message received from the server</returns>
-        public async static Task<(string, string)> QueueMatch(string username, string token)
+        public async static Task<(string, string)> Enqueue(string username, string token)
         {
 
             string status = "";
@@ -152,12 +152,11 @@ namespace BattleshipUIRework.Models
             return (status, message);
         }
 
-
         /// <summary>
         /// returns a tuple containing the matchid, the map, and the username of the opponent if a match has been found, else an empty tuple
         /// </summary>
         /// <returns>A tuple containing the status, message, matchId (string), map (int[]), opponent (string)</returns>
-        public async static Task<(string, string, string, int[], string)> MatchFound(string username, string token)
+        public async static Task<(string, string, string, int[], string)> Queue(string username, string token)
         {
             string matchId = "";
             int[] map = null;
