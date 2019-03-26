@@ -34,6 +34,7 @@ namespace BattleshipUIRework.Views
             string message = "Error connecting to server";
             string token = "";
 
+            //Check if entered credentials are valid
             if (!EmailValid(EmailTxtBox.Text))
             {
                 message = "Email invalid!";
@@ -48,6 +49,7 @@ namespace BattleshipUIRework.Views
             }
             else
             {
+                //Submit credentials to server if local validation is successful
                 using (SHA256 hashAlg = SHA256.Create())
                 {
                     byte[] hashedPw = hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTxtBox.Password));
@@ -56,6 +58,7 @@ namespace BattleshipUIRework.Views
             }
             if (status.Equals("success"))
             {
+                //Switch to main window if remote validation successful
                 Console.WriteLine("Registration successful");
                 MainWindow main = new MainWindow(UsrTxtBox.Text, token);
                 Window.GetWindow(this).Close();
