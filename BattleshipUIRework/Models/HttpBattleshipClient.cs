@@ -156,12 +156,14 @@ namespace BattleshipUIRework.Models
         /// <summary>
         /// returns a tuple containing the matchid, the map, and the username of the opponent if a match has been found, else an empty tuple
         /// </summary>
-        /// <returns>A tuple containing the matchId (string), map (int[]), opponent (string)</returns>
-        public async static Task<(string, int[], string)> MatchFound(string username, string token)
+        /// <returns>A tuple containing the status, message, matchId (string), map (int[]), opponent (string)</returns>
+        public async static Task<(string, string, string, int[], string)> MatchFound(string username, string token)
         {
             string matchId = "";
             int[] map = null;
             string opponent = "";
+            string status = "";
+            string message = "";
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("username", username);
@@ -173,7 +175,8 @@ namespace BattleshipUIRework.Models
                     string server_json = await response.Content.ReadAsStringAsync();
                     Console.WriteLine("Server json: " + server_json);
                     JObject jobj = JObject.Parse(server_json);
-                    string status = jobj.Property("status")?.Value?.ToString();
+                    status = jobj.Property("status")?.Value?.ToString();
+                    message = jobj.Property("message")?.Value?.ToString();
                     if (status.Equals("success"))
                     {
                         matchId = jobj.Property("matchId")?.Value?.ToString();
@@ -187,7 +190,7 @@ namespace BattleshipUIRework.Models
                     Console.WriteLine(e.Message);
                 }
             }
-            return (matchId, map, opponent);
+            return (status, message, matchId, map, opponent);
         }
 
         /// <summary>
