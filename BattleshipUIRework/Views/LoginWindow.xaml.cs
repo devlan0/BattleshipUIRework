@@ -27,7 +27,7 @@ namespace BattleshipUIRework
 
         private void CloseBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
