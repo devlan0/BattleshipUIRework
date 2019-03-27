@@ -20,9 +20,9 @@ namespace BattleshipUIRework
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        //Variables needed in multiple views.
         public static string _token = "";
         public static string _username = "";
-        public static int[] _playerMap;
         public static string _matchid = "";
         public static string _opponent = "";
 
@@ -36,5 +36,6 @@ namespace BattleshipUIRework
         {
             this.Close();
         }
+
     }
 }

@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using BattleshipUIRework.Models;
 
 namespace BattleshipUIRework.Views
 {
@@ -20,9 +11,14 @@ namespace BattleshipUIRework.Views
     /// </summary>
     public partial class BuildView : UserControl
     {
-        public BuildView()
+        public BuildView(int[] map)
         {
             InitializeComponent();
+            Player player = new Player(0, GameLogic.ConvertMap(map), GameLogic._size);
+            player.SetField(GameLogic.GenerateUIField(player, buildCol1, true));
+            buildCol1.Children.Add(player.uiField);
+            Grid.SetColumn(player.uiField, player.uiColumn);
+            CalcFieldSize();
         }
     }
 }

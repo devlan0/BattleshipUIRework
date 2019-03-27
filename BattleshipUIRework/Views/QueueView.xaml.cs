@@ -7,12 +7,13 @@ using BattleshipUIRework.Models;
 namespace BattleshipUIRework.Views
 {
     /// <summary>
-    /// Starts Queue and loops until game found or stopped (still needs to be implemented)
+    /// Starts Queue and loops until game found or stopped
     /// </summary>
     public partial class QueueView : UserControl
     {
         //Umbenennen
         private static bool _stopBtn_clicked = false;
+
         public QueueView()
         {
             InitializeComponent();
@@ -23,10 +24,14 @@ namespace BattleshipUIRework.Views
             string status = "";
             string message = "Error connecting to server.";
 
-            //Place user in queue
-            Console.WriteLine("User: {0} Token: {1}", MainWindow._username, MainWindow._token);
-            (status, message) = await HttpBattleshipClient.Enqueue(MainWindow._username, MainWindow._token);
-            Console.WriteLine("Checkpoint");
+            // Change UI
+            QueueButton.Click -= StartQueueBtn_Clicked;
+            QueueButton.Click += StopQueueBtn_Clicked;
+            QueueButtonText.Text = "Stop Queue";
+            ProgressRing.IsActive = true;
+
+             //Place user in queue
+             (status, message) = await HttpBattleshipClient.Enqueue(MainWindow._username, MainWindow._token);
 
             if (status.Equals("success"))
             {
@@ -38,9 +43,7 @@ namespace BattleshipUIRework.Views
                     (status, message, MainWindow._matchid, MainWindow._playerMap, MainWindow._opponent) = await HttpBattleshipClient.Queue(MainWindow._username, MainWindow._token);
                     if (status.Equals("success"))
                     {
-                        Console.WriteLine("Status: {0} Message: {1}", status, message);
-                        Console.WriteLine("Your opponent: {0}", MainWindow._opponent);
-                        Window.GetWindow(this).DataContext = new GameView();
+                        Window.GetWindow(this).DataContext = new BuildView();
                     }
                     else
                     {
@@ -50,12 +53,16 @@ namespace BattleshipUIRework.Views
             }
             else
             {
-                Console.WriteLine("Status: {0}, Message: {1}", status, message);
+                ErrorLabel.Content = message;
             }
         }
         private void StopQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
             _stopBtn_clicked = true;
+            QueueButton.Click -= StopQueueBtn_Clicked;
+            QueueButton.Click += StartQueueBtn_Clicked;
+            QueueButtonText.Text = "Start Queue";
+            ProgressRing.IsActive = false;
         }
     }
 }
