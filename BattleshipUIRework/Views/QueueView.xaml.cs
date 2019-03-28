@@ -58,6 +58,7 @@ namespace BattleshipUIRework.Views
         }
         private void StopQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
+            // Dequeue
             _stopBtn_clicked = true;
             QueueButton.Click -= StopQueueBtn_Clicked;
             QueueButton.Click += StartQueueBtn_Clicked;

@@ -13,6 +13,9 @@ namespace BattleshipUIRework.Models
         private static SolidColorBrush _land = new SolidColorBrush(Color.FromArgb(255, 233, 240, 116));
         private static SolidColorBrush _ship = new SolidColorBrush(Color.FromArgb(255, 128, 128, 128));
         private static SolidColorBrush _hit = new SolidColorBrush(Color.FromArgb(255, 212, 4, 36));
+
+
+
         /// <summary>
         /// Converts between 1D and 2D array representation of the map
         /// </summary>
@@ -53,8 +56,10 @@ namespace BattleshipUIRework.Models
         /// <param name="field">Grid in which he shall put the Grid</param>
         /// <param name="buildingPhase">Wether Buttons shall build Ships or Fire upon said.</param>
         /// <returns>Tuple: Grid (UI) and Buttons in the UI (for later recoloring)</returns>
-        public static Tuple<Grid, Button[,]> GenerateUIField(Player player, Grid field, bool buildingPhase)
+        public static Tuple<Grid, Button[,]> GenerateUIField(Player player, bool buildingPhase)
         {
+            Grid field = new Grid();
+
             // Generate necessary Rows/Columns
             for (int i = 0; i < _size; i++)
             {
@@ -74,6 +79,12 @@ namespace BattleshipUIRework.Models
                     button.VerticalAlignment = VerticalAlignment.Stretch;
                     button.Margin = new Thickness(0.5);
                     int f = player.field[j, i];
+
+                    // 0 = Water
+                    // 1 = Land -> Ship
+                    // 2 = Ship
+                    // 3 = Hit
+                    // 4 = or Miss
                     switch (f)
                     {
                         case 0:
@@ -87,7 +98,7 @@ namespace BattleshipUIRework.Models
                             break;
                     }
 
-                    if (buildingPhase) button.Click += player.SetShip;
+                    if (buildingPhase) button.Click += SetShip;
                     else button.Click += Fire;
 
                     field.Children.Add(button);
@@ -102,14 +113,14 @@ namespace BattleshipUIRework.Models
         {
 
         }
-        public void SetShip(object sender, RoutedEventArgs e)
+        public static void SetShip(object sender, RoutedEventArgs e)
         {
             Button send = (Button)sender;
             string[] text = send.Name.Split('b');
             int x = Int32.Parse(text[1]);
             int y = Int32.Parse(text[2]);
-            this.field[x, y] = 2;
-            this.buttonField[x, y].Background = _ship;
+            MainWindow.player.field[x, y] = 2;
+            MainWindow.player.buttonField[x, y].Background = _ship;
 
             //more building logic
         }
@@ -143,3 +154,5 @@ namespace BattleshipUIRework.Models
         }
     }
 }
+
+// () = CurrentTurn()

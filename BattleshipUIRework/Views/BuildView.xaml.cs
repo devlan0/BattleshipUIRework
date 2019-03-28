@@ -14,8 +14,8 @@ namespace BattleshipUIRework.Views
         public BuildView(int[] map)
         {
             InitializeComponent();
-            Player player = new Player(0, GameLogic.ConvertMap(map), GameLogic._size);
-            player.SetField(GameLogic.GenerateUIField(player, buildCol1, true));
+            Player player = MainWindow.player = new Player(0, GameLogic.ConvertMap(map), GameLogic._size);
+            player.SetField(GameLogic.GenerateUIField(player, true));
             buildCol1.Children.Add(player.uiField);
             Grid.SetColumn(player.uiField, player.uiColumn);
             CalcFieldSize();

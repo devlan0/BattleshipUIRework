@@ -305,6 +305,7 @@ namespace BattleshipUIRework.Models
                     {
                         shotsFired = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
                     }
+                    // HURENSOHN
                 }
                 catch (HttpRequestException e)
                 {
