@@ -269,8 +269,8 @@ namespace BattleshipUIRework.Models
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine("Error at class 'HttpBattleshipClient' in method 'ShotFired' ");
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Error at class 'HttpBattleshipClient' in method 'ShotFired'   ");
+                     Console.WriteLine(e.Message);
                 }
             }
             return (status, message);
