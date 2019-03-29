@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Media;
 using MahApps.Metro.Controls;
 using BattleshipUIRework.Models;
+using BattleshipUIRework.Views;
 
 namespace BattleshipUIRework
 {
@@ -13,17 +14,27 @@ namespace BattleshipUIRework
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        //Variables needed in multiple views.
+        //global ui constants
+        public static readonly int _globalMargin = 10;
+        public static readonly int _size = 15;
+
+        //Colors
+        public static SolidColorBrush _water = new SolidColorBrush(Color.FromArgb(255, 174, 197, 214));
+        public static SolidColorBrush _land = new SolidColorBrush(Color.FromArgb(255, 233, 240, 116));
+        public static SolidColorBrush _ship = new SolidColorBrush(Color.FromArgb(255, 128, 128, 128));
+        public static SolidColorBrush _hit = new SolidColorBrush(Color.FromArgb(255, 212, 4, 36));
+
+        //matchstuff
         public static string _token = "";
         public static string _matchid = "";
-        public static string _username = "";
-        public static string _opponent = "";
+
+        //players
         public static Player player;
         public static Player opponent;
 
         public MainWindow(string username, string token)
         {
-            _username = username;
+            MainWindow.player = new Player(0, username);
             _token = token;
             InitializeComponent();
         }
@@ -31,6 +42,5 @@ namespace BattleshipUIRework
         {
             this.Close();
         }
-
     }
 }

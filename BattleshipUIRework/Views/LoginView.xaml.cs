@@ -22,7 +22,7 @@ namespace BattleshipUIRework.Views
     /// </summary>
     public partial class LoginView : UserControl
     {
-
+        private static bool _logBtn_Clicked = false;
         public LoginView()
         {
             InitializeComponent();
@@ -30,24 +30,29 @@ namespace BattleshipUIRework.Views
 
         private async void LoginBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            string status = "";
-            string message = "Error connecting to server";
-            string token = "";
+            if (!_logBtn_Clicked)
+            {
+                _logBtn_Clicked = true;
+                string status = "";
+                string message = "Error connecting to server";
+                string token = "";
 
-            /*using (SHA256 hashAlg = SHA256.Create())
-            {
-                (status, message, token) = await HttpBattleshipClient.Login(UsrTextBox.Text, hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTextBox.Password)));
-            }*/
-            status = "success";
-            if(status.Equals("success"))
-            {
-                MainWindow main = new MainWindow(UsrTextBox.Text, token);
-                Window.GetWindow(this).Close();
-                main.Show();
-            }
-            else
-            {
-                ErrorLabel.Content = message;
+                /*using (SHA256 hashAlg = SHA256.Create())
+                {
+                    (status, message, token) = await HttpBattleshipClient.Login(UsrTextBox.Text, hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTextBox.Password)));
+                }*/
+                status = "success";
+                if (status.Equals("success"))
+                {
+                    MainWindow main = new MainWindow(UsrTextBox.Text, token);
+                    Window.GetWindow(this).Close();
+                    main.Show();
+                }
+                else
+                {
+                    ErrorLabel.Content = message;
+                }
+                _logBtn_Clicked = false;
             }
         }
 

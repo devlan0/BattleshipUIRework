@@ -23,6 +23,7 @@ namespace BattleshipUIRework.Views
     /// </summary>
     public partial class RegisterView : UserControl
     {
+        private static bool _regBtn_clicked = false;
         public RegisterView()
         {
             InitializeComponent();
@@ -30,41 +31,46 @@ namespace BattleshipUIRework.Views
 
         private async void RegisterBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            string status = "";
-            string message = "Error connecting to server";
-            string token = "";
+            if(!_regBtn_clicked)
+            {
+                _regBtn_clicked = true;
+                string status = "";
+                string message = "Error connecting to server";
+                string token = "";
 
-            //Check if entered credentials are valid
-            if (!EmailValid(EmailTxtBox.Text))
-            {
-                message = "Email invalid!";
-            }
-            else if (!PasswordValid(PwdTxtBox.Password))
-            {
-                message = "Password invalid!";
-            }
-            else if (!PwdTxtBox.Password.Equals(PwdRepeatTxtBox.Password))
-            {
-                message = "Passwords do not match!";
-            }
-            else
-            {
-                //Submit credentials to server if local validation is successful
-                using (SHA256 hashAlg = SHA256.Create())
+                //Check if entered credentials are valid
+                if (!EmailValid(EmailTxtBox.Text))
                 {
-                    byte[] hashedPw = hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTxtBox.Password));
-                    (status, message, token) = await HttpBattleshipClient.Register(UsrTxtBox.Text, EmailTxtBox.Text, hashedPw);
+                    message = "Email invalid!";
                 }
+                else if (!PasswordValid(PwdTxtBox.Password))
+                {
+                    message = "Password invalid!";
+                }
+                else if (!PwdTxtBox.Password.Equals(PwdRepeatTxtBox.Password))
+                {
+                    message = "Passwords do not match!";
+                }
+                else
+                {
+                    //Submit credentials to server if local validation is successful
+                    using (SHA256 hashAlg = SHA256.Create())
+                    {
+                        byte[] hashedPw = hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTxtBox.Password));
+                        (status, message, token) = await HttpBattleshipClient.Register(UsrTxtBox.Text, EmailTxtBox.Text, hashedPw);
+                    }
+                }
+                if (status.Equals("success"))
+                {
+                    //Switch to main window if remote validation successful
+                    Console.WriteLine("Registration successful");
+                    MainWindow main = new MainWindow(UsrTxtBox.Text, token);
+                    Window.GetWindow(this).Close();
+                    main.Show();
+                }
+                ErrorLabel.Content = message;
+                _regBtn_clicked = false;
             }
-            if (status.Equals("success"))
-            {
-                //Switch to main window if remote validation successful
-                Console.WriteLine("Registration successful");
-                MainWindow main = new MainWindow(UsrTxtBox.Text, token);
-                Window.GetWindow(this).Close();
-                main.Show();
-            }
-            ErrorLabel.Content = message;
         }
 
         private void AccExistsBtn_Clicked(object sender, RoutedEventArgs e)
