@@ -15,6 +15,7 @@ namespace BattleshipUIRework.Views
         //Umbenennen
         private static bool _stopBtn_clicked = false;
         private static bool _startBtn_clicked = false;
+        private static bool enqueued = false;
 
         public QueueView()
         {
@@ -27,21 +28,25 @@ namespace BattleshipUIRework.Views
             if(!_startBtn_clicked)
             {
                 _startBtn_clicked = true;
+                QueueButton.Click -= StartQueueBtn_Clicked;
                 string status = "";
                 string message = "Error connecting to server.";
 
-                // Change UI
-                QueueButton.Click -= StartQueueBtn_Clicked;
-                QueueButton.Click += StopQueueBtn_Clicked;
-                QueueButtonText.Text = "Stop Queue";
-                ProgressRing.IsActive = true;
 
                 //Place user in queue
-                (status, message) = await HttpBattleshipClient.Enqueue(MainWindow.player.name, MainWindow._token);
-                //status = "success";
+                //(status, message) = await HttpBattleshipClient.Enqueue(MainWindow.player.name, MainWindow._token);
+                status = "success";
 
                 if (status.Equals("success"))
                 {
+                    // Change UI
+                    QueueButton.Click += StopQueueBtn_Clicked;
+                    QueueButtonText.Text = "Stop Queue";
+                    ProgressRing.IsActive = true;
+
+                    enqueued = true;
+
+
                     //Check if match found
                     status = "";
 
@@ -76,10 +81,15 @@ namespace BattleshipUIRework.Views
             QueueButton.Click += StartQueueBtn_Clicked;
             QueueButtonText.Text = "Start Queue";
             ProgressRing.IsActive = false;
+            enqueued = false;
         }
         
         public void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
         {
+            if(enqueued)
+            {
+                // Dequeue
+            }
             LoginWindow login = new LoginWindow();
             Window.GetWindow(this).Close();
             login.Show();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,10 +15,16 @@ namespace BattleshipUIRework.Views
         public BuildView()
         {
             InitializeComponent();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             Tuple<Grid, Button[]> tuple = GenerateUIField(MainWindow.player);
             MainWindow.player.buttonField = tuple.Item2;
             buildCol1.Children.Add(tuple.Item1);
-            //CalcFieldSize();
+            int size = GameLogic.CalcSize(buildCol1);
+            ErrorLabel.Content = size;
+            Thread.Sleep(10000);
+            GameLogic.Resize((Grid)buildCol1.Children[0], size);
         }
 
         /// <summary>
@@ -28,6 +35,8 @@ namespace BattleshipUIRework.Views
         public static Tuple<Grid, Button[]> GenerateUIField(Player pl)
         {
             Grid field = new Grid();
+            field.HorizontalAlignment = HorizontalAlignment.Stretch;
+            field.VerticalAlignment = VerticalAlignment.Stretch;
 
             // Generate necessary Rows/Columns
             for (int i = 0; i < MainWindow._size; i++)

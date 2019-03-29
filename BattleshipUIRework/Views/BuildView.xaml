@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:BattleshipUIRework.Views"
              mc:Ignorable="d" 
             d:DesignWidth="1024" d:DesignHeight="577"
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Loaded="Window_Loaded">
     <Grid Background="#FF101D29" x:Name="BuildGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -33,8 +33,9 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid x:Name="buildCol1" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="6" Grid.RowSpan="7">
-            
-        </Grid>
+        <StackPanel x:Name="buildCol1" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="6" Grid.RowSpan="7">
+
+        </StackPanel>
+        <Label Name="ErrorLabel" Content="" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="7" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Foreground="Red" Margin="10" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"/>
     </Grid>
 </UserControl>
