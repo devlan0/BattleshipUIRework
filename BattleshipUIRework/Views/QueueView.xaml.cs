@@ -19,55 +19,72 @@ namespace BattleshipUIRework.Views
             InitializeComponent();
         }
 
-        private async void StartQueueBtn_Clicked(object sender, RoutedEventArgs e)
+        private void StartQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
+
             QueueButton.IsEnabled = false;
-
-            string status = "";
-            string message = "Error connecting to server.";
-
-            // Change UI
+            Console.WriteLine("Queue btn clicked!");
+            // Change btn appearance
             QueueButton.Click -= StartQueueBtn_Clicked;
             QueueButton.Click += StopQueueBtn_Clicked;
             QueueButtonText.Text = "Stop Queue";
             ProgressRing.IsActive = true;
- 
+
             QueueButton.IsEnabled = true;
 
-            //TODO: ADJUST COMMENTS IN THIS SECTION ACCORDINGLY
-            //Place user in queue
-            (status, message) = await HttpBattleshipClient.Enqueue(MainWindow._player._username, MainWindow._token);
-            //status = "success";
+            Thread thread = new Thread(new ThreadStart(FindMatch));
+            thread.Start();
 
-            if (status.Equals("success"))
+        }
+
+        private async void FindMatch()
+        {
+            try
             {
-                //Check if match found
-                status = "";
+                string status = "";
+                string message = "Error connecting to server.";
 
-                while (!status.Equals("success") && !_stopBtn_clicked)
+                //TODO: ADJUST COMMENTS IN THIS SECTION ACCORDINGLY
+                //Place user in queue
+                (status, message) = await HttpBattleshipClient.Enqueue(MainWindow._player._username, MainWindow._token);
+                //status = "success";
+
+                if (status.Equals("success"))
                 {
-                    //TODO: ADJUST COMMENTS IN THIS SECTION ACCORDINGLY
-                    (status, message, MainWindow._matchid, MainWindow._player._fields, MainWindow._opponent._username) = await HttpBattleshipClient.Queue(MainWindow._player._username, MainWindow._token);
-                    //status = "success";
-                    MainWindow._player._fields = Enumerable.Range(0, 225).Select(n => 0).ToArray();
-                    if (status.Equals("success"))
+                    //Check if match found
+                    status = "";
+
+                    while (!status.Equals("success") && !_stopBtn_clicked)
                     {
-                        Console.WriteLine("Your opponent: " + MainWindow._opponent._username);
-                        Window.GetWindow(this).DataContext = new BuildView();
-                    }
-                    else
-                    {
-                        Thread.Sleep(1000);
+                        //TODO: ADJUST COMMENTS IN THIS SECTION ACCORDINGLY
+                        (status, message, MainWindow._matchid, MainWindow._player._fields, MainWindow._opponent._username) = await HttpBattleshipClient.Queue(MainWindow._player._username, MainWindow._token);
+                        //status = "success";
+                        MainWindow._player._fields = Enumerable.Range(0, 225).Select(n => 0).ToArray();
+                        if (status.Equals("success"))
+                        {
+                            Console.WriteLine("Your opponent: " + MainWindow._opponent._username);
+                            Window.GetWindow(this).DataContext = new BuildView();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Searching...");
+                            Thread.Sleep(1000);
+                        }
                     }
                 }
+                else
+                {
+                    ErrorLabel.Content = message;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ErrorLabel.Content = message;
+                Console.WriteLine("Thread EXCEPTION");
+                Console.WriteLine(ex.GetBaseException().Message);
             }
-
             
         }
+
         private async void StopQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
             QueueButton.IsEnabled = false;
