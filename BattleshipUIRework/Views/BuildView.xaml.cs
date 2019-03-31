@@ -14,8 +14,8 @@ namespace BattleshipUIRework.Views
         public BuildView()
         {
             InitializeComponent();
-            Tuple<Grid, Button[]> tuple = GenerateUIField(MainWindow.player);
-            MainWindow.player.buttonField = tuple.Item2;
+            Tuple<Grid, Button[]> tuple = GenerateUIField(MainWindow._player);
+            MainWindow._player._buttonField = tuple.Item2;
             buildCol1.Children.Add(tuple.Item1);
             //CalcFieldSize();
         }
@@ -44,7 +44,7 @@ namespace BattleshipUIRework.Views
                 button.HorizontalAlignment = HorizontalAlignment.Stretch;
                 button.VerticalAlignment = VerticalAlignment.Stretch;
                 button.Margin = new Thickness(0.5);
-                int f = pl.field[i];
+                int f = pl._fields[i];
 
                 // 0 = Water
                 // 1 = Land -> Ship
@@ -80,9 +80,9 @@ namespace BattleshipUIRework.Views
         public static void SetShip(object sender, RoutedEventArgs e)
         {
             Button send = (Button)sender;
-            int index = Array.IndexOf(MainWindow.player.buttonField, send);
-            MainWindow.player.field[index] = 2;
-            MainWindow.player.buttonField[index].Background = MainWindow._ship;
+            int index = Array.IndexOf(MainWindow._player._buttonField, send);
+            MainWindow._player._fields[index] = 2;
+            MainWindow._player._buttonField[index].Background = MainWindow._ship;
 
             //more building logic
         }

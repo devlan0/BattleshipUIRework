@@ -12,9 +12,7 @@ namespace BattleshipUIRework.Views
     /// </summary>
     public partial class QueueView : UserControl
     {
-        //Umbenennen
-        private static bool _stopBtn_clicked = false;
-        private static bool _startBtn_clicked = false;
+        private bool _stopBtn_clicked = false;
 
         public QueueView()
         {
@@ -23,50 +21,50 @@ namespace BattleshipUIRework.Views
 
         private async void StartQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            //Disable Button Spam, i know what you did John ..
-            if(!_startBtn_clicked)
+            QueueButton.IsEnabled = false;
+
+            string status = "";
+            string message = "Error connecting to server.";
+
+            // Change UI
+            QueueButton.Click -= StartQueueBtn_Clicked;
+            QueueButton.Click += StopQueueBtn_Clicked;
+            QueueButtonText.Text = "Stop Queue";
+            ProgressRing.IsActive = true;
+
+            //TODO: ADJUST COMMENTS IN THIS SECTION ACCORDINGLY
+            //Place user in queue
+            (status, message) = await HttpBattleshipClient.Enqueue(MainWindow._player._username, MainWindow._token);
+            //status = "success";
+
+            if (status.Equals("success"))
             {
-                _startBtn_clicked = true;
-                string status = "";
-                string message = "Error connecting to server.";
+                //Check if match found
+                status = "";
 
-                // Change UI
-                QueueButton.Click -= StartQueueBtn_Clicked;
-                QueueButton.Click += StopQueueBtn_Clicked;
-                QueueButtonText.Text = "Stop Queue";
-                ProgressRing.IsActive = true;
-
-                //Place user in queue
-                (status, message) = await HttpBattleshipClient.Enqueue(MainWindow.player.name, MainWindow._token);
-                //status = "success";
-
-                if (status.Equals("success"))
+                while (!status.Equals("success") && !_stopBtn_clicked)
                 {
-                    //Check if match found
-                    status = "";
-
-                    while (!status.Equals("success") && !_stopBtn_clicked)
+                    //TODO: ADJUST COMMENTS IN THIS SECTION ACCORDINGLY
+                    (status, message, MainWindow._matchid, MainWindow._player._fields, MainWindow._opponent._username) = await HttpBattleshipClient.Queue(MainWindow._player._username, MainWindow._token);
+                    //status = "success";
+                    MainWindow._player._fields = Enumerable.Range(0, 225).Select(n => 0).ToArray();
+                    if (status.Equals("success"))
                     {
-                        //(status, message, MainWindow._matchid, MainWindow.player.field, MainWindow._opponent) = await HttpBattleshipClient.Queue(MainWindow._username, MainWindow._token);
-                        status = "success";
-                        MainWindow.player.field = Enumerable.Range(0, 225).Select(n => 0).ToArray();
-                        if (status.Equals("success"))
-                        {
-
-                            Window.GetWindow(this).DataContext = new BuildView();
-                        }
-                        else
-                        {
-                            Thread.Sleep(1000);
-                        }
+                        Console.WriteLine("Your opponent: " + MainWindow._opponent._username);
+                        Window.GetWindow(this).DataContext = new BuildView();
+                    }
+                    else
+                    {
+                        Thread.Sleep(1000);
                     }
                 }
-                else
-                {
-                    ErrorLabel.Content = message;
-                }
-                _startBtn_clicked = false;
             }
+            else
+            {
+                ErrorLabel.Content = message;
+            }
+
+            QueueButton.IsEnabled = true;
         }
         private void StopQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
