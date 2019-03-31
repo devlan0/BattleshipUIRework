@@ -31,6 +31,8 @@ namespace BattleshipUIRework.Views
             QueueButton.Click += StopQueueBtn_Clicked;
             QueueButtonText.Text = "Stop Queue";
             ProgressRing.IsActive = true;
+ 
+            QueueButton.IsEnabled = true;
 
             //TODO: ADJUST COMMENTS IN THIS SECTION ACCORDINGLY
             //Place user in queue
@@ -64,16 +66,18 @@ namespace BattleshipUIRework.Views
                 ErrorLabel.Content = message;
             }
 
-            QueueButton.IsEnabled = true;
+            
         }
-        private void StopQueueBtn_Clicked(object sender, RoutedEventArgs e)
+        private async void StopQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            // Dequeue
+            QueueButton.IsEnabled = false;
+            await HttpBattleshipClient.Dequeue(MainWindow._player._username, MainWindow._token);
             _stopBtn_clicked = true;
             QueueButton.Click -= StopQueueBtn_Clicked;
             QueueButton.Click += StartQueueBtn_Clicked;
             QueueButtonText.Text = "Start Queue";
             ProgressRing.IsActive = false;
+            QueueButton.IsEnabled = true;
         }
         
         public void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
