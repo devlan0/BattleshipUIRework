@@ -98,5 +98,32 @@ namespace BattleshipUIRework.Views
             }
             return true;
         }
+
+        private void UsrTextChanged(object sender, TextChangedEventArgs e)
+        {
+            RegisterBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private void EmailTextChanged(object sender, TextChangedEventArgs e)
+        {
+            RegisterBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private void PasswordTextChanged(object sender, RoutedEventArgs e)
+        {
+            RegisterBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private void RepPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            RegisterBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private bool TextFieldsNotEmpty()
+        {
+            return !UsrTxtBox.Text.Equals("") && !EmailTxtBox.Text.Equals("") && !PwdTxtBox.Password.Equals("") && !PwdRepeatTxtBox.Password.Equals("")
+                ? true
+                : false;
+        }
     }
 }

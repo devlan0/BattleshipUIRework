@@ -59,5 +59,19 @@ namespace BattleshipUIRework.Views
             Window.GetWindow(this).DataContext = new RegisterView();
         }
 
+        private void UsrTextField_Changed(object sender, TextChangedEventArgs e)
+        {
+            LoginBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private void PwField_Changed(object sender, RoutedEventArgs e)
+        {
+            LoginBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private bool TextFieldsNotEmpty()
+        {
+            return !UsrTextBox.Text.Equals("") && !PwdTextBox.Password.Equals("") ? true : false;
+        }
     }
 }
