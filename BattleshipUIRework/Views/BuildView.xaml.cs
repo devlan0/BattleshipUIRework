@@ -18,8 +18,8 @@ namespace BattleshipUIRework.Views
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Tuple<Grid, Button[]> tuple = GenerateUIField(MainWindow.player);
-            MainWindow.player.buttonField = tuple.Item2;
+            Tuple<Grid, Button[]> tuple = GenerateUIField(MainWindow._player);
+            MainWindow._player.buttonField = tuple.Item2;
             buildCol1.Children.Add(tuple.Item1);
             int size = GameLogic.CalcSize(buildCol1);
             ErrorLabel.Content = size;
@@ -89,9 +89,9 @@ namespace BattleshipUIRework.Views
         public static void SetShip(object sender, RoutedEventArgs e)
         {
             Button send = (Button)sender;
-            int index = Array.IndexOf(MainWindow.player.buttonField, send);
-            MainWindow.player.field[index] = 2;
-            MainWindow.player.buttonField[index].Background = MainWindow._ship;
+            int index = Array.IndexOf(MainWindow._player.buttonField, send);
+            MainWindow._player.field[index] = 2;
+            MainWindow._player.buttonField[index].Background = MainWindow._ship;
 
             //more building logic
         }

@@ -54,7 +54,7 @@ namespace BattleshipUIRework.Views
                     {
                         //(status, message, MainWindow._matchid, MainWindow.player.field, MainWindow._opponent) = await HttpBattleshipClient.Queue(MainWindow._username, MainWindow._token);
                         status = "success";
-                        MainWindow.player.field = Enumerable.Range(0, 225).Select(n => 0).ToArray();
+                        MainWindow._player.field = Enumerable.Range(0, 225).Select(n => 0).ToArray();
                         if (status.Equals("success"))
                         {
 
