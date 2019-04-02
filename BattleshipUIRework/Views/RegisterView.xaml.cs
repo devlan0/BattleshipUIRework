@@ -23,7 +23,6 @@ namespace BattleshipUIRework.Views
     /// </summary>
     public partial class RegisterView : UserControl
     {
-        private static bool _regBtn_clicked = false;
         public RegisterView()
         {
             InitializeComponent();
@@ -31,45 +30,46 @@ namespace BattleshipUIRework.Views
 
         private async void RegisterBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            if(!_regBtn_clicked)
-            {
-                _regBtn_clicked = true;
-                string status = "";
-                string message = "Error connecting to server";
-                string token = "";
+            string status = "";
+            string message = "Error connecting to server";
+            string token = "";
 
-                //Check if entered credentials are valid
-                if (!EmailValid(EmailTxtBox.Text))
+            RegisterBtn.IsEnabled = false;
+
+            //Check if entered credentials are valid
+            if (!EmailValid(EmailTxtBox.Text))
+            {
+                message = "Email invalid!";
+            }
+            else if (!PasswordValid(PwdTxtBox.Password))
+            {
+                message = "Password invalid!";
+            }
+            else if (!PwdTxtBox.Password.Equals(PwdRepeatTxtBox.Password))
+            {
+                message = "Passwords do not match!";
+            }
+            else
+            {
+                //Submit credentials to server if local validation is successful
+                using (SHA256 hashAlg = SHA256.Create())
                 {
-                    message = "Email invalid!";
+                    byte[] hashedPw = hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTxtBox.Password));
+                    (status, message, token) = await HttpBattleshipClient.Register(UsrTxtBox.Text, EmailTxtBox.Text, hashedPw);
                 }
-                else if (!PasswordValid(PwdTxtBox.Password))
-                {
-                    message = "Password invalid!";
-                }
-                else if (!PwdTxtBox.Password.Equals(PwdRepeatTxtBox.Password))
-                {
-                    message = "Passwords do not match!";
-                }
-                else
-                {
-                    //Submit credentials to server if local validation is successful
-                    using (SHA256 hashAlg = SHA256.Create())
-                    {
-                        byte[] hashedPw = hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTxtBox.Password));
-                        (status, message, token) = await HttpBattleshipClient.Register(UsrTxtBox.Text, EmailTxtBox.Text, hashedPw);
-                    }
-                }
-                if (status.Equals("success"))
-                {
-                    //Switch to main window if remote validation successful
-                    Console.WriteLine("Registration successful");
-                    MainWindow main = new MainWindow(UsrTxtBox.Text, token);
-                    Window.GetWindow(this).Close();
-                    main.Show();
-                }
+            }
+            if (status.Equals("success"))
+            {
+                //Switch to main window if remote validation successful
+                Console.WriteLine("Registration successful");
+                MainWindow main = new MainWindow(UsrTxtBox.Text, token);
+                Window.GetWindow(this).Close();
+                main.Show();
+            }
+            else
+            {
                 ErrorLabel.Content = message;
-                _regBtn_clicked = false;
+                RegisterBtn.IsEnabled = true;
             }
         }
 
@@ -97,6 +97,33 @@ namespace BattleshipUIRework.Views
                 return false;
             }
             return true;
+        }
+
+        private void UsrTextChanged(object sender, TextChangedEventArgs e)
+        {
+            RegisterBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private void EmailTextChanged(object sender, TextChangedEventArgs e)
+        {
+            RegisterBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private void PasswordTextChanged(object sender, RoutedEventArgs e)
+        {
+            RegisterBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private void RepPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            RegisterBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private bool TextFieldsNotEmpty()
+        {
+            return !UsrTxtBox.Text.Equals("") && !EmailTxtBox.Text.Equals("") && !PwdTxtBox.Password.Equals("") && !PwdRepeatTxtBox.Password.Equals("")
+                ? true
+                : false;
         }
     }
 }

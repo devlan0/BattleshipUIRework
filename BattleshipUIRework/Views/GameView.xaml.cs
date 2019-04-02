@@ -47,7 +47,7 @@ namespace BattleshipUIRework.Views
                 button.HorizontalAlignment = HorizontalAlignment.Stretch;
                 button.VerticalAlignment = VerticalAlignment.Stretch;
                 button.Margin = new Thickness(0.5);
-                int f = pl.field[i];
+                int f = pl._fields[i];
 
                 // 0 = Water
                 // 1 = Land -> Ship

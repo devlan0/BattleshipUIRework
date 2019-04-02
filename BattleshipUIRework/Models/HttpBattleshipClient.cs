@@ -50,7 +50,6 @@ namespace BattleshipUIRework.Models
                     HttpResponseMessage response = await client.PostAsync(uri + "/register", new StringContent(json, Encoding.UTF8, "application/json"));
                     response.EnsureSuccessStatusCode();
                     string server_json = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Server json: " + server_json);
                     JObject jobj = JObject.Parse(server_json);
                     status = jobj.Property("status")?.Value?.ToString();
                     message = jobj.Property("message")?.Value?.ToString();
@@ -218,7 +217,6 @@ namespace BattleshipUIRework.Models
                     HttpResponseMessage response = await client.PostAsync(uri + "/withVal/submitBattleships", new StringContent(json, Encoding.UTF8, "application/json"));
                     response.EnsureSuccessStatusCode();
                     string server_json = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Server json: " + server_json);
                     JObject jobj = JObject.Parse(server_json);
                     status = jobj.Property("status")?.Value?.ToString();
                     message = jobj.Property("message")?.Value?.ToString();
@@ -264,7 +262,6 @@ namespace BattleshipUIRework.Models
                     HttpResponseMessage response = await client.PostAsync(uri + "/withVal/shotFired", new StringContent(json, Encoding.UTF8, "application/json"));
                     response.EnsureSuccessStatusCode();
                     string server_json = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Server json: " + server_json);
                     JObject jobj = JObject.Parse(server_json);
                     status = jobj.Property("status")?.Value?.ToString();
                     message = jobj.Property("message")?.Value?.ToString();
@@ -272,8 +269,8 @@ namespace BattleshipUIRework.Models
                 }
                 catch (HttpRequestException e)
                 {
-                    Console.WriteLine("Error at class 'HttpBattleshipClient' in method 'ShotFired' ");
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("Error at class 'HttpBattleshipClient' in method 'ShotFired'   ");
+                     Console.WriteLine(e.Message);
                 }
             }
             return (status, message);
@@ -297,7 +294,6 @@ namespace BattleshipUIRework.Models
                     HttpResponseMessage response = await client.GetAsync(uri + "/withVal/currentTurn");
                     response.EnsureSuccessStatusCode();
                     string server_json = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("Server json: " + server_json);
                     JObject jobj = JObject.Parse(server_json);
                     status = jobj.Property("status")?.Value?.ToString();
                     message = jobj.Property("message")?.Value?.ToString();
@@ -305,7 +301,6 @@ namespace BattleshipUIRework.Models
                     {
                         shotsFired = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
                     }
-                    // HURENSOHN
                 }
                 catch (HttpRequestException e)
                 {
@@ -317,7 +312,43 @@ namespace BattleshipUIRework.Models
         }
 
         #endregion
-        
+
+        #region app related methods
+
+        /// <summary>
+        /// Notifies the server to dequeue the user 
+        /// </summary>
+        /// <returns>Returns a tuple consisting of the status and message received from the server</returns>
+        public async static Task<(string, string)> Dequeue(string username, string token)
+        {
+            string status = "";
+            string message = "";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("username", username);
+                client.DefaultRequestHeaders.Add("token", token);
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(uri + "/withVal/dequeueMatch");
+                    string server_json = await response.Content.ReadAsStringAsync();
+                    JObject jobj = JObject.Parse(server_json);
+                    status = jobj.Property("status")?.Value?.ToString();
+                    message = jobj.Property("message")?.Value?.ToString();
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Error at class 'HttpBattleshipClient' in method 'Dequeue'");
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+            return (status, message);
+
+        }
+
+        #endregion
+
     }
 
 }

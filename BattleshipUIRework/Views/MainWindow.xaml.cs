@@ -29,18 +29,29 @@ namespace BattleshipUIRework
         public static string _matchid = "";
 
         //players
-        public static Player player;
-        public static Player opponent;
+        public static Player _player;
+        public static Player _opponent;
 
         public MainWindow(string username, string token)
         {
-            MainWindow.player = new Player(0, username);
+            _player = new Player(0, username, null);
+            _opponent = new Player(0, null, null);
             _token = token;
             InitializeComponent();
         }
         private void CloseBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private async void DequeueUser(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            string status = "";
+            string message = "";
+            Console.WriteLine("Sending dequeue request..."); 
+            (status, message) = await HttpBattleshipClient.Dequeue(_player._username, _token);
+            Console.WriteLine("Status: {0}, Message: {1}", status, message);
+
         }
     }
 }

@@ -22,7 +22,6 @@ namespace BattleshipUIRework.Views
     /// </summary>
     public partial class LoginView : UserControl
     {
-        private static bool _logBtn_Clicked = false;
         public LoginView()
         {
             InitializeComponent();
@@ -30,29 +29,28 @@ namespace BattleshipUIRework.Views
 
         private async void LoginBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            if (!_logBtn_Clicked)
-            {
-                _logBtn_Clicked = true;
-                string status = "";
-                string message = "Error connecting to server";
-                string token = "";
+            LoginBtn.IsEnabled = false;
 
-                /*using (SHA256 hashAlg = SHA256.Create())
-                {
-                    (status, message, token) = await HttpBattleshipClient.Login(UsrTextBox.Text, hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTextBox.Password)));
-                }*/
-                status = "success";
-                if (status.Equals("success"))
-                {
-                    MainWindow main = new MainWindow(UsrTextBox.Text, token);
-                    Window.GetWindow(this).Close();
-                    main.Show();
-                }
-                else
-                {
-                    ErrorLabel.Content = message;
-                }
-                _logBtn_Clicked = false;
+            string status = "";
+            string message = "Error connecting to server";
+            string token = "";
+
+            //TODO: ADJUST SECTION ACCORDINGLY FOR LIVE TESTS
+            using (SHA256 hashAlg = SHA256.Create())
+            {
+                (status, message, token) = await HttpBattleshipClient.Login(UsrTextBox.Text, hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTextBox.Password)));
+            }
+            //status = "success";
+            if (status.Equals("success"))
+            {
+                MainWindow main = new MainWindow(UsrTextBox.Text, token);
+                Window.GetWindow(this).Close();
+                main.Show();
+            }
+            else
+            {
+                LoginBtn.IsEnabled = true;
+                ErrorLabel.Content = message;
             }
         }
 
@@ -61,5 +59,19 @@ namespace BattleshipUIRework.Views
             Window.GetWindow(this).DataContext = new RegisterView();
         }
 
+        private void UsrTextField_Changed(object sender, TextChangedEventArgs e)
+        {
+            LoginBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private void PwField_Changed(object sender, RoutedEventArgs e)
+        {
+            LoginBtn.IsEnabled = TextFieldsNotEmpty();
+        }
+
+        private bool TextFieldsNotEmpty()
+        {
+            return !UsrTextBox.Text.Equals("") && !PwdTextBox.Password.Equals("") ? true : false;
+        }
     }
 }
