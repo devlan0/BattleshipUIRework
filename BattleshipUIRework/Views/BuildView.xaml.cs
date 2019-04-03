@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,10 +15,16 @@ namespace BattleshipUIRework.Views
         public BuildView()
         {
             InitializeComponent();
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             Tuple<Grid, Button[]> tuple = GenerateUIField(MainWindow._player);
-            MainWindow._player._buttonField = tuple.Item2;
+            MainWindow._player.buttonField = tuple.Item2;
             buildCol1.Children.Add(tuple.Item1);
-            //CalcFieldSize();
+            int size = GameLogic.CalcSize(buildCol1);
+            ErrorLabel.Content = size;
+            Thread.Sleep(10000);
+            GameLogic.Resize((Grid)buildCol1.Children[0], size);
         }
 
         /// <summary>
@@ -28,6 +35,8 @@ namespace BattleshipUIRework.Views
         public static Tuple<Grid, Button[]> GenerateUIField(Player pl)
         {
             Grid field = new Grid();
+            field.HorizontalAlignment = HorizontalAlignment.Stretch;
+            field.VerticalAlignment = VerticalAlignment.Stretch;
 
             // Generate necessary Rows/Columns
             for (int i = 0; i < MainWindow._size; i++)
@@ -44,7 +53,7 @@ namespace BattleshipUIRework.Views
                 button.HorizontalAlignment = HorizontalAlignment.Stretch;
                 button.VerticalAlignment = VerticalAlignment.Stretch;
                 button.Margin = new Thickness(0.5);
-                int f = pl._fields[i];
+                int f = pl.field[i];
 
                 // 0 = Water
                 // 1 = Land -> Ship
@@ -80,9 +89,9 @@ namespace BattleshipUIRework.Views
         public static void SetShip(object sender, RoutedEventArgs e)
         {
             Button send = (Button)sender;
-            int index = Array.IndexOf(MainWindow._player._buttonField, send);
-            MainWindow._player._fields[index] = 2;
-            MainWindow._player._buttonField[index].Background = MainWindow._ship;
+            int index = Array.IndexOf(MainWindow._player.buttonField, send);
+            MainWindow._player.field[index] = 2;
+            MainWindow._player.buttonField[index].Background = MainWindow._ship;
 
             //more building logic
         }

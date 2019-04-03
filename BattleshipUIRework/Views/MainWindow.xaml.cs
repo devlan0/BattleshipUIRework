@@ -34,8 +34,15 @@ namespace BattleshipUIRework
 
         public MainWindow(string username, string token)
         {
-            _player = new Player(0, username, null);
-            _opponent = new Player(0, null, null);
+            _player = new Player
+            {
+                uiColumn = 0,
+                username = username
+            };
+            _opponent = new Player
+            {
+                uiColumn = 1
+            };
             _token = token;
             InitializeComponent();
         }
@@ -49,7 +56,7 @@ namespace BattleshipUIRework
             string status = "";
             string message = "";
             Console.WriteLine("Sending dequeue request..."); 
-            (status, message) = await HttpBattleshipClient.Dequeue(_player._username, _token);
+            (status, message) = await HttpBattleshipClient.Dequeue(_player.username, _token);
             Console.WriteLine("Status: {0}, Message: {1}", status, message);
 
         }
