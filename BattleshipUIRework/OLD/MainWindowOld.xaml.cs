@@ -18,27 +18,6 @@ namespace BattleshipUIRework
 {
     public partial class MainWindowOld : Window
     {
-        private static Player player1;
-        private static SolidColorBrush _colorPlayer1 = new SolidColorBrush(Color.FromArgb(255, 110, 90, 125));
-        private static SolidColorBrush _colorPlayer1Dark = new SolidColorBrush(Color.FromArgb(255, 49, 40, 56));
-        private static SolidColorBrush _colorPlayer1Light = new SolidColorBrush(Color.FromArgb(255, 162, 132, 184));
-
-        private static Player player2;
-        private static SolidColorBrush _colorPlayer2 = new SolidColorBrush(Color.FromArgb(255, 245, 115, 130));
-        private static SolidColorBrush _colorPlayer2Dark = new SolidColorBrush(Color.FromArgb(255, 74, 35, 39));
-        private static SolidColorBrush _colorPlayer2Light = new SolidColorBrush(Color.FromArgb(255, 222, 167, 189));
-
-        private static string _token;
-        private static string _name;
-        private static string _gameID;
-        private static string _opponent;
-
-        private static int _globalMargin = 10;
-        private static int _size = 15;
-
-        private static int _stage = 0;      //0 = Login/Whatever, 1 = Build, 2 = Fight
-        private static int _buildStage = 0; //0 = Build, 1 = Restricted
-
         /// <summary>
         /// Main Window
         /// </summary>
@@ -90,77 +69,11 @@ namespace BattleshipUIRework
             submitShips.Click += SubmitBattleships;
             Logout();*/
         }
-        /*
-        #region Login Register Logout
-        //mostly UI-Stuff, no logic
-
-        private void Logout()
-        {
-            gameGrid.Visibility = Visibility.Collapsed;
-            queueGrid.Visibility = Visibility.Collapsed;
-            buildShipsGrid.Visibility = Visibility.Collapsed;
-            loginGrid.Visibility = Visibility.Visible;
-
-            if (loginGrid.ColumnDefinitions.Count == 3) loginGrid.ColumnDefinitions.RemoveAt(2);
-            emailPanel.Visibility = Visibility.Collapsed;
-        }
-        private void Login(object sender, RoutedEventArgs e)
-        {
-            Login();
-        }
-        private async void Login()
-        {
-            _name = usernameBox.Text;
-            string email = emailBox.Text;
-            string password = passwordBox.Text;
-            using (SHA256 mySHA256 = SHA256.Create())
-            {
-                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-                byte[] hashedPassword = mySHA256.ComputeHash(passwordBytes);
-                //(string status, string message, string _token) = await HttpBattleshipClient.Login(_name, hashedPassword);
-                loginGrid.Visibility = Visibility.Collapsed;
-                queueGrid.Visibility = Visibility.Visible;
-                Queue queue = new Queue();
-                //this.
-            }
-        }
-        private void RegisterStart(object sender, RoutedEventArgs e)
-        {
-            ColumnDefinition col = new ColumnDefinition();
-            loginGrid.ColumnDefinitions.Add(col);
-            emailPanel.Visibility = Visibility.Visible;
-            loginButtons.Visibility = Visibility.Collapsed;
-            registerButtons.Visibility = Visibility.Visible;
-        }
-
-        private async void RegisterEnd(object sender, RoutedEventArgs e)
-        {
-            _name = usernameBox.Text;
-            string email = emailBox.Text;
-            string password = passwordBox.Text;
-            using (SHA256 mySHA256 = SHA256.Create())
-            {
-                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-                byte[] hashedPassword = mySHA256.ComputeHash(passwordBytes);
-                (string status, string message, string token) = await HttpBattleshipClient.Register(_name, email, hashedPassword);
-                if (status.Equals("success"))
-                {
-                    _token = token;
-                }
-                else
-                {
-                    string msg = message;
-                    //textbox.print
-                }
-                Login();
-            }
-        }
-
         #endregion
 
         
 
-        //stack.Children.Remove((ContentPanel.FindName("textBox1") as TextBox));
+        /*stack.Children.Remove((ContentPanel.FindName("textBox1") as TextBox));
         //YourTextBox.Visibility = Visibility.Collapsed;
         private async void BuildShips()
         {
@@ -176,7 +89,7 @@ namespace BattleshipUIRework
             CalcFieldSize();
 
             //column2.Children.Add(opponentField);
-            /*(string matchID, int[] field, string opponent) = await HttpBattleshipClient.MatchFound(_name, _token);
+            (string matchID, int[] field, string opponent) = await HttpBattleshipClient.MatchFound(_name, _token);
 
             int column,row = column = 0;
             foreach (int square in field)
@@ -328,43 +241,6 @@ namespace BattleshipUIRework
         }
         
 */
-        #endregion
 
-    }
-
-    //Playerclass, handles everything playerbased (like individual fields, colors etc.)
-    internal class Player
-    {
-        public SolidColorBrush color;
-        public SolidColorBrush dark;
-        public SolidColorBrush light;
-        public int uiColumn;
-        public Grid uiField;
-        public Button[,] buttonField;
-        public int[,] field;
-        private int _size;
-
-        public Player(SolidColorBrush color, SolidColorBrush dark, SolidColorBrush light, int uiColumn, Grid subgrid, int size)
-        {
-            this.color = color;
-            this.dark = dark;
-            this.light = light;
-            this.field = new int[_size, _size];
-            this.uiColumn = uiColumn;
-            this._size = size;
-        }
-        public void SetUIField(Tuple<Grid, Button[,]> tuple)
-        {
-            this.uiField = tuple.Item1;
-            this.buttonField = tuple.Item2;
-        }
-        public void ChangedSize(int size)
-        {
-            foreach (Button button in uiField.Children)
-            {
-                button.Width = size;
-                button.Height = size;
-            }
-        }
     }
 }

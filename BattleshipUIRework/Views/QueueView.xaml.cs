@@ -26,7 +26,7 @@ namespace BattleshipUIRework.Views
             // Change btn appearance
             QueueButton.Click -= StartQueueBtn_Clicked;
             QueueButton.Click += StopQueueBtn_Clicked;
-            QueueButtonText.Text = "Stop Queue";
+            QueueButton.Content = "Stop Queue";
             ProgressRing.IsActive = true;
             QueueButton.IsEnabled = true;
             new Thread(async () =>
@@ -43,7 +43,7 @@ namespace BattleshipUIRework.Views
                     }
                    else
                     {
-                        (status, message) = await HttpBattleshipClient.Enqueue(MainWindow._player._username, MainWindow._token);
+                        (status, message) = await HttpBattleshipClient.Enqueue(MainWindow.player.name, MainWindow.token);
                     }
 
                     if (status.Equals("success"))
@@ -56,16 +56,19 @@ namespace BattleshipUIRework.Views
                             if (App.DEBUG_MODE)
                             {
                                 status = "success";
+                                MainWindow.player.field = Enumerable.Range(0, 225).Select(n => 0).ToArray();
+                                MainWindow.player.originalField = Enumerable.Range(0, 225).Select(n => 0).ToArray();
+                                MainWindow.opponent.name = "Otto";
                             }
                             else
                             {
-                                (status, message, MainWindow._matchid, MainWindow._player._fields, MainWindow._opponent._username) = await HttpBattleshipClient.Queue(MainWindow._player._username, MainWindow._token);
+                                (status, message, MainWindow.matchid, MainWindow.player.field, MainWindow.opponent.name) = await HttpBattleshipClient.Queue(MainWindow.player.name, MainWindow.token);
+                                Array.Copy(MainWindow.player.field, 0, MainWindow.player.originalField, 0, MainWindow.player.field.Length);
                             }
 
-                            MainWindow._player._fields = Enumerable.Range(0, 225).Select(n => 0).ToArray();
                             if (status.Equals("success"))
                             {
-                                Console.WriteLine("Your opponent: " + MainWindow._opponent._username);
+                                Console.WriteLine("Your opponent: " + MainWindow.opponent.name);
                                 Dispatcher.Invoke(() =>
                                 {
                                     Window.GetWindow(this).DataContext = new BuildView();
@@ -94,12 +97,12 @@ namespace BattleshipUIRework.Views
         private async void StopQueueBtn_Clicked(object sender, RoutedEventArgs e)
         {
             QueueButton.IsEnabled = false;
-            await HttpBattleshipClient.Dequeue(MainWindow._player._username, MainWindow._token);
             _stopBtn_clicked = true;
             QueueButton.Click -= StopQueueBtn_Clicked;
             QueueButton.Click += StartQueueBtn_Clicked;
-            QueueButtonText.Text = "Start Queue";
+            QueueButton.Content = "Start Queue";
             ProgressRing.IsActive = false;
+            await HttpBattleshipClient.Dequeue(MainWindow.player.name, MainWindow.token);
             QueueButton.IsEnabled = true;
         }
         

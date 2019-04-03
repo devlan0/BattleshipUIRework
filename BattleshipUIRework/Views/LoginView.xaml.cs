@@ -25,7 +25,11 @@ namespace BattleshipUIRework.Views
         public LoginView()
         {
             InitializeComponent();
-        }
+            if (App.DEBUG_MODE)
+            {
+                LoginBtn.IsEnabled = true;
+            }
+            }
 
         private async void LoginBtn_Clicked(object sender, RoutedEventArgs e)
         {

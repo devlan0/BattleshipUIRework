@@ -33,15 +33,15 @@ namespace BattleshipUIRework.Views
             Grid field = new Grid();
 
             // Generate necessary Rows/Columns
-            for (int i = 0; i < MainWindow._size; i++)
+            for (int i = 0; i < MainWindow.size; i++)
             {
                 ColumnDefinition col = new ColumnDefinition();
                 field.ColumnDefinitions.Add(col);
                 RowDefinition row = new RowDefinition();
                 field.RowDefinitions.Add(row);
             }
-            Button[] buttons = new Button[(int)Math.Pow(MainWindow._size, 2)];
-            for (int i = 0; i < MainWindow._size; i++)
+            Button[] buttons = new Button[(int)Math.Pow(MainWindow.size, 2)];
+            for (int i = 0; i < MainWindow.size; i++)
             {
                 Button button = new Button();
                 button.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -57,21 +57,21 @@ namespace BattleshipUIRework.Views
                 switch (f)
                 {
                     case 0:
-                        button.Background = MainWindow._water;
+                        button.Background = MainWindow.water;
                         break;
                     case 1:
-                        button.Background = MainWindow._land;
+                        button.Background = MainWindow.land;
                         break;
                     case 2:
-                        button.Background = MainWindow._ship;
+                        button.Background = MainWindow.ship;
                         break;
                 }
 
                 button.Click += Fire;
 
                 field.Children.Add(button);
-                Grid.SetColumn(button, (int)i / MainWindow._size);
-                Grid.SetRow(button, (int)i / MainWindow._size);
+                Grid.SetColumn(button, (int)i / MainWindow.size);
+                Grid.SetRow(button, (int)i / MainWindow.size);
                 buttons[i] = button;
             }
             return Tuple.Create(field, buttons);

@@ -12,7 +12,8 @@ namespace BattleshipUIRework.Models
         public int uiColumn;
         public Button[] buttonField;
         public int[] field;
-        public string username;
+        public int[] originalField;
+        public string name;
 
         public Player()
         {

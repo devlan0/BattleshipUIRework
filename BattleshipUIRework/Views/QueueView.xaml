@@ -33,12 +33,10 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button x:Name="QueueButton" Grid.Column="3" Grid.Row="4" VerticalAlignment="Stretch" Background="#FFDE0424" BorderBrush="{x:Null}" Foreground="White" Click="StartQueueBtn_Clicked" Margin="10" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <TextBlock x:Name="QueueButtonText">Start Queue</TextBlock>
-        </Button>
+        <Button x:Name="QueueButton" Content="Start Queue" Grid.Column="3" Grid.Row="4" VerticalAlignment="Stretch" Background="#FFDE0424" BorderBrush="{x:Null}" Foreground="White" Click="StartQueueBtn_Clicked" Margin="10" Grid.ColumnSpan="4" Grid.RowSpan="2" />
         <Label Name="ErrorLabel" Content="" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="7" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Width="185" Foreground="Red" Margin="10" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"/>
-        <Controls:ProgressRing x:Name="ProgressRing" IsActive="False" Grid.ColumnSpan="2" Grid.Column="4" Grid.Row="6" Grid.RowSpan="2" Foreground="#CCFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Controls:ProgressRing>
-        <Image x:Name="loadingGif" Grid.ColumnSpan="2" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Stretch" gif:AnimationBehavior.SourceUri="Icons/loading.gif" />
+        <Controls:ProgressRing x:Name="ProgressRing" IsActive="False" Grid.ColumnSpan="2" Grid.Column="4" Grid.Row="6" Grid.RowSpan="2" Foreground="#CCFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Image x:Name="loadingGif" Stretch="Fill" Grid.ColumnSpan="2" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="2" Grid.RowSpan="2" VerticalAlignment="Stretch" gif:AnimationBehavior.SourceUri="/Icons/loading.gif" />
         <Button x:Name="LogoutBtn" Grid.ColumnSpan="2" Content="Logout" Grid.Column="8" Margin="10" Grid.Row="9" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="LogoutBtn_Clicked"/>
     </Grid>
 </UserControl>
