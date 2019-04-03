@@ -20,11 +20,8 @@ namespace BattleshipUIRework
     /// </summary>
     public partial class LoginWindow : MetroWindow
     {
-        private SolidColorBrush window_btn_color = new SolidColorBrush(Color.FromRgb(255,255,255));
-
         public LoginWindow()
         {
-            
             InitializeComponent();
         }
 

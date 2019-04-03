@@ -37,14 +37,10 @@ namespace BattleshipUIRework.Views
                     string status = "";
                     string message = "Error connecting to server.";
 
-                   if (App.DEBUG_MODE)
-                    {
-                        status = "success";
-                    }
-                   else
-                    {
-                        (status, message) = await HttpBattleshipClient.Enqueue(MainWindow._player._username, MainWindow._token);
-                    }
+                    //TODO: ADJUST COMMENTS IN THIS SECTION ACCORDINGLY
+                    //Place user in queue
+                    (status, message) = await HttpBattleshipClient.Enqueue(MainWindow._player._username, MainWindow._token);
+                    //status = "success";
 
                     if (status.Equals("success"))
                     {
@@ -53,23 +49,14 @@ namespace BattleshipUIRework.Views
 
                         while (!status.Equals("success") && !_stopBtn_clicked)
                         {
-                            if (App.DEBUG_MODE)
-                            {
-                                status = "success";
-                            }
-                            else
-                            {
-                                (status, message, MainWindow._matchid, MainWindow._player._fields, MainWindow._opponent._username) = await HttpBattleshipClient.Queue(MainWindow._player._username, MainWindow._token);
-                            }
-
+                            //TODO: ADJUST COMMENTS IN THIS SECTION ACCORDINGLY
+                            (status, message, MainWindow._matchid, MainWindow._player._fields, MainWindow._opponent._username) = await HttpBattleshipClient.Queue(MainWindow._player._username, MainWindow._token);
+                            //status = "success";
                             MainWindow._player._fields = Enumerable.Range(0, 225).Select(n => 0).ToArray();
                             if (status.Equals("success"))
                             {
                                 Console.WriteLine("Your opponent: " + MainWindow._opponent._username);
-                                Dispatcher.Invoke(() =>
-                                {
-                                    Window.GetWindow(this).DataContext = new BuildView();
-                                });
+                                Window.GetWindow(this).DataContext = new BuildView();
                             }
                             else
                             {

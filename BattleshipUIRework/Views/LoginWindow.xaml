@@ -15,7 +15,6 @@
         ResizeMode="CanMinimize"
         GlowBrush="#FF101D29"
         LeftWindowCommandsOverlayBehavior="Never" RightWindowCommandsOverlayBehavior="Never" WindowTransitionsEnabled="False">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -41,7 +40,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
         <ContentControl Grid.Row="0" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="10">
             <ContentControl.Content>
                 <Binding>

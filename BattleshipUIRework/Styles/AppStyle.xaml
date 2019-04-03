@@ -4,22 +4,7 @@
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
     <Color x:Key="BaseColor">#FF101D29</Color>
-    <Color x:Key="FontColor">#FFFFFFFF</Color>
-
+    
     <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource BaseColor}" options:Freeze="True" />
-
-    <Style x:Key="WindowButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MetroWindowButtonStyle}">
-        <Style.Triggers>
-
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#EB2F2F" />
-                <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#7C0000" />
-            </Trigger>
-
-        </Style.Triggers>
-    </Style>
 
 </ResourceDictionary>
