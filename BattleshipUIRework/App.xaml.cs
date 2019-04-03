@@ -14,6 +14,9 @@ namespace BattleshipUIRework
     /// </summary>
     public partial class App : Application
     {
+        //TODO: Set to false before deployment
+        public static bool DEBUG_MODE = true;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             ThemeManager.AddAccent("AccentBaseColorBrush", new Uri("pack://application:,,,/BattleshipUIRework;component/Styles/AppStyle.xaml"));

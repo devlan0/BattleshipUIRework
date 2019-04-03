@@ -35,12 +35,18 @@ namespace BattleshipUIRework.Views
             string message = "Error connecting to server";
             string token = "";
 
-            //TODO: ADJUST SECTION ACCORDINGLY FOR LIVE TESTS
-            using (SHA256 hashAlg = SHA256.Create())
+            if (App.DEBUG_MODE)
             {
-                (status, message, token) = await HttpBattleshipClient.Login(UsrTextBox.Text, hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTextBox.Password)));
+                status = "success";
             }
-            //status = "success";
+            else
+            {
+                using (SHA256 hashAlg = SHA256.Create())
+                {
+                    (status, message, token) = await HttpBattleshipClient.Login(UsrTextBox.Text, hashAlg.ComputeHash(Encoding.UTF8.GetBytes(PwdTextBox.Password)));
+                }
+            }
+
             if (status.Equals("success"))
             {
                 MainWindow main = new MainWindow(UsrTextBox.Text, token);
