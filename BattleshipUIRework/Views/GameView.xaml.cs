@@ -97,7 +97,8 @@ namespace BattleshipUIRework.Views
                 int index = Array.IndexOf(MainWindow.player.buttonField, send);
                 string status = "";
                 string message = "Connection to Server failed.";
-                (status, message) = await HttpBattleshipClient.ShotFired(index % MainWindow.size, (int)(index / MainWindow.size), MainWindow.player.name, MainWindow.token);
+                string hit_status = "";
+                (status, message, hit_status) = await HttpBattleshipClient.ShotFired(index % MainWindow.size, (int)(index / MainWindow.size), MainWindow.player.name, MainWindow.token);
                 if (status.Equals("success"))
                 {
                     //Some Logic on successful shot
