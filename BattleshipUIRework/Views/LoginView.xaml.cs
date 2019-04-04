@@ -29,7 +29,7 @@ namespace BattleshipUIRework.Views
             {
                 LoginBtn.IsEnabled = true;
             }
-            }
+        }
 
         private async void LoginBtn_Clicked(object sender, RoutedEventArgs e)
         {

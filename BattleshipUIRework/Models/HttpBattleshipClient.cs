@@ -198,7 +198,6 @@ namespace BattleshipUIRework.Models
         public async static Task<(string, string)> SubmitBattleships(int[] battleships, string username, string token)
         {
             string status = "";
-
             string message = "";
             //Create json object
             var obj = new
@@ -229,6 +228,48 @@ namespace BattleshipUIRework.Models
                 }
             }
             return (status, message);
+        }
+
+        /// <summary>
+        /// Checks if the opponent is ready
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="token"></param>
+        /// <returns>status, message, and positions of the opponent's battleships received from server</returns>
+        public async static Task<(string, string, int[])> OpponentReady(string username, string token)
+        {
+            string status = "";
+            string message = "";
+            int[] battleship_positions = null;
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("username", username);
+                client.DefaultRequestHeaders.Add("token", token);
+
+                try
+                {
+                    //TODO: URI MISSING - ADD URI
+                    HttpResponseMessage response = await client.GetAsync(uri + "/withVal/??");
+                    response.EnsureSuccessStatusCode();
+                    string server_json = await response.Content.ReadAsStringAsync();
+                    JObject jobj = JObject.Parse(server_json);
+                    status = jobj.Property("status")?.Value?.ToString();
+                    message = jobj.Property("message")?.Value?.ToString();
+                    if (status.Equals("success"))
+                    {
+                        battleship_positions = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
+                    }
+
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine("Error at class 'HttpBattleshipClient' in method 'OpponentReady' ");
+                    Console.WriteLine(e.Message);
+                }
+
+                return (status, message, battleship_positions);
+            }
         }
 
         #endregion
