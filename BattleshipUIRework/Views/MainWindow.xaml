@@ -9,7 +9,7 @@
         Visibility="Visible"
         GlowBrush="#FF101D29"
         LeftWindowCommandsOverlayBehavior="Never" RightWindowCommandsOverlayBehavior="Never" WindowTransitionsEnabled="False" 
-        Title="MainWindow" Height="577" Width="1024" WindowStartupLocation="CenterScreen" Closing="DequeueUser">
+        Title="MainWindow" Height="577" Width="1024" WindowStartupLocation="CenterScreen" Closing="DequeueUser" MinWidth="1024" MinHeight="577">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
