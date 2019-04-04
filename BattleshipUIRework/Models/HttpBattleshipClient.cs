@@ -280,11 +280,12 @@ namespace BattleshipUIRework.Models
         /// submits the shots fired 
         /// </summary>
         /// <param name="shotsFired"></param>
-        /// <returns>Returns a string tuple consisting of the status and message received from the server</returns>
-        public async static Task<(string, string)> ShotFired(int xValue, int yValue, string username, string token)
+        /// <returns>Returns a string tuple consisting of the status, message and hit status received from the server</returns>
+        public async static Task<(string, string, string)> ShotFired(int xValue, int yValue, string username, string token)
         {
             string status = "";
             string message = "";
+            string hit_status = "";
             //Create json object
             var obj = new
             {
@@ -306,6 +307,7 @@ namespace BattleshipUIRework.Models
                     JObject jobj = JObject.Parse(server_json);
                     status = jobj.Property("status")?.Value?.ToString();
                     message = jobj.Property("message")?.Value?.ToString();
+                    hit_status = jobj.Property("hitstatus")?.Value?.ToString(); //TODO: Check property name
 
                 }
                 catch (HttpRequestException e)
@@ -314,7 +316,7 @@ namespace BattleshipUIRework.Models
                      Console.WriteLine(e.Message);
                 }
             }
-            return (status, message);
+            return (status, message, hit_status);
         }
         
         /// <summary>
