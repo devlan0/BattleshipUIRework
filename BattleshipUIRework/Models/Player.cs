@@ -9,7 +9,6 @@ namespace BattleshipUIRework.Models
 {
     public class Player
     {
-        public int uiColumn;
         public Button[] buttonField;
         public int[] field;
         public int[] originalField;

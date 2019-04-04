@@ -59,6 +59,8 @@ namespace BattleshipUIRework.Views
                                 MainWindow.player.field = Enumerable.Range(0, 225).Select(n => 0).ToArray();
                                 MainWindow.player.originalField = Enumerable.Range(0, 225).Select(n => 0).ToArray();
                                 MainWindow.opponent.name = "Otto";
+                                MainWindow.player.name = "Adolf";
+                                MainWindow.opponent.field = Enumerable.Range(0, 225).Select(n => 0).ToArray();
                             }
                             else
                             {

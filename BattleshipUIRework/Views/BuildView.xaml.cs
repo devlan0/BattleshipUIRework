@@ -33,8 +33,8 @@ namespace BattleshipUIRework.Views
         {
             //Create Gridfield
             Grid field = new Grid();
-            field.HorizontalAlignment = HorizontalAlignment.Left;
-            field.VerticalAlignment = VerticalAlignment.Top;
+            field.HorizontalAlignment = HorizontalAlignment.Center;
+            field.VerticalAlignment = VerticalAlignment.Center;
 
             // Generate necessary Rows/Columns
             for (int i = 0; i < MainWindow.size; i++)
@@ -78,6 +78,9 @@ namespace BattleshipUIRework.Views
 
             //more building logic
         }
+
+
+
         private async void SendShipsBtn_Clicked(object sender, RoutedEventArgs e)
         {
             string status = "";

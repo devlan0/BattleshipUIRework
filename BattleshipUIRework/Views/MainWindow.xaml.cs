@@ -42,13 +42,9 @@ namespace BattleshipUIRework
             //colorDic.Add(4, miss);
             player = new Player
             {
-                uiColumn = 0,
                 name = username
             };
-            opponent = new Player
-            {
-                uiColumn = 1
-            };
+            opponent = new Player();
             MainWindow.token = token;
             InitializeComponent();
         }

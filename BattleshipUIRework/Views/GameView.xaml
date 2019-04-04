@@ -4,9 +4,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BattleshipUIRework.Views"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignWidth="1024" d:DesignHeight="577"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Loaded="Window_Loaded">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="Padding" Value="0.5" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#CAE6FA"/>
+                    <Setter Property="BorderBrush" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid  Background="#FF101D29">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="gameCol1" Grid.ColumnSpan="4" Margin="10" Grid.Column="1" Grid.Row="2" Grid.RowSpan="7"></StackPanel>
+        <StackPanel x:Name="gameCol2" Grid.ColumnSpan="4" Margin="10" Grid.Column="5" Grid.Row="2" Grid.RowSpan="7"></StackPanel>
+        <Label Name="ErrorLabel" Content="" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="9" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Width="185" Foreground="Red" Margin="10" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"/>
+        <Button x:Name="LeaveBtn" Grid.ColumnSpan="2" Content="Leave Game" Grid.Column="8" Margin="10" Grid.Row="9" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="LeaveBtn_Clicked"/>
+        <TextBlock x:Name="opponenText" Grid.Column="5" HorizontalAlignment="Center" Margin="10" Grid.Row="1" TextWrapping="Wrap" Text="Opponent" VerticalAlignment="Center" Grid.ColumnSpan="4" FontSize="20" Foreground="White"/>
+        <TextBlock x:Name="playerText" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="1" TextWrapping="Wrap" Text="Player" Grid.ColumnSpan="4" FontSize="20" Foreground="White"/>
     </Grid>
 </UserControl>
