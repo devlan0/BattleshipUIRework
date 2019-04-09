@@ -29,19 +29,29 @@ namespace BattleshipUIRework.Views
             QueueButton.Content = "Stop Queue";
             ProgressRing.IsActive = true;
             QueueButton.IsEnabled = true;
+            MainWindow.enqueued = true;
+
             new Thread(async () =>
             {
+
+                //
+                //
+                // PLEASE REWORK
+                //
+                //
+
                 Thread.CurrentThread.IsBackground = true;
+                // why try?
                 try
                 {
                     string status = "";
                     string message = "Error connecting to server.";
 
-                   if (App.DEBUG_MODE)
+                    if (App.DEBUG_MODE)
                     {
                         status = "success";
                     }
-                   else
+                    else
                     {
                         (status, message) = await HttpBattleshipClient.Enqueue(MainWindow.player.name, MainWindow.token);
                     }
@@ -65,6 +75,13 @@ namespace BattleshipUIRework.Views
                             else
                             {
                                 (status, message, MainWindow.matchid, MainWindow.player.field, MainWindow.opponent.name) = await HttpBattleshipClient.Queue(MainWindow.player.name, MainWindow.token);
+                                
+                                //
+                                //
+                                // MAY CREATE ERROR, need server for further testing
+                                //
+                                //
+
                                 Array.Copy(MainWindow.player.field, 0, MainWindow.player.originalField, 0, MainWindow.player.field.Length);
                             }
 
@@ -73,6 +90,8 @@ namespace BattleshipUIRework.Views
                                 Console.WriteLine("Your opponent: " + MainWindow.opponent.name);
                                 Dispatcher.Invoke(() =>
                                 {
+                                    MainWindow.enqueued = false;
+                                    MainWindow.ingame = true;
                                     Window.GetWindow(this).DataContext = new BuildView();
                                 });
                             }
@@ -105,11 +124,17 @@ namespace BattleshipUIRework.Views
             QueueButton.Content = "Start Queue";
             ProgressRing.IsActive = false;
             await HttpBattleshipClient.Dequeue(MainWindow.player.name, MainWindow.token);
+            MainWindow.enqueued = false;
             QueueButton.IsEnabled = true;
         }
-        
-        public void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
+
+        public async void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
         {
+            if (MainWindow.enqueued)
+            {
+                MainWindow.enqueued = false;
+                await HttpBattleshipClient.Dequeue(MainWindow.player.name, MainWindow.token);
+            }
             LoginWindow login = new LoginWindow();
             Window.GetWindow(this).Close();
             login.Show();

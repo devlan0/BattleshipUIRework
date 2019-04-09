@@ -23,11 +23,14 @@ namespace BattleshipUIRework
         public static SolidColorBrush land = new SolidColorBrush(Color.FromArgb(255, 233, 240, 116));
         public static SolidColorBrush ship = new SolidColorBrush(Color.FromArgb(255, 128, 128, 128));
         public static SolidColorBrush hit = new SolidColorBrush(Color.FromArgb(255, 212, 4, 36));
+        public static SolidColorBrush miss = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
         public static Dictionary<int, SolidColorBrush> colorDic = new Dictionary<int, SolidColorBrush>();
 
         //matchstuff
         public static string token = "";
         public static string matchid = "";
+        public static bool enqueued = false;
+        public static bool ingame = false;
 
         //players
         public static Player player;
@@ -39,6 +42,7 @@ namespace BattleshipUIRework
             colorDic.Add(1, land);
             colorDic.Add(2, ship);
             colorDic.Add(3, hit);
+            colorDic.Add(4, miss);
             //colorDic.Add(4, miss);
             player = new Player
             {
@@ -50,6 +54,8 @@ namespace BattleshipUIRework
         }
         private void CloseBtn_Clicked(object sender, RoutedEventArgs e)
         {
+            if (enqueued) _ = HttpBattleshipClient.Dequeue(player.name, token);
+            //if (ingame) _ = HttpBattleshipClient.LeaveGame;
             Close();
         }
 

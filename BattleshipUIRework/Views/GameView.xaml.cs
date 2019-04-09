@@ -13,6 +13,7 @@ namespace BattleshipUIRework.Views
     public partial class GameView : UserControl
     {
         private bool currentturn;
+        private bool gameEnded = false;
 
         public GameView()
         {
@@ -46,7 +47,8 @@ namespace BattleshipUIRework.Views
             GameLogic.Resize((Grid)gameCol1.Children[0], size);
             GameLogic.Resize((Grid)gameCol2.Children[0], size);
 
-            GameLoop();
+            Thread game = new Thread(new ThreadStart(GameLoop));
+            game.Start();
         }
 
         /// <summary>
@@ -101,7 +103,9 @@ namespace BattleshipUIRework.Views
                 (status, message, hit_status) = await HttpBattleshipClient.ShotFired(index % MainWindow.size, (int)(index / MainWindow.size), MainWindow.player.name, MainWindow.token);
                 if (status.Equals("success"))
                 {
-                    //Some Logic on successful shot
+                    if(hit_status.Equals("hit")) send.Background = MainWindow.hit; //Correct Equals
+                    else send.Background = MainWindow.miss;
+
                     currentturn = false;
                 }
                 else
@@ -112,24 +116,31 @@ namespace BattleshipUIRework.Views
         }
         private async void GameLoop()
         {
-            while (true)
+            string status = "";
+            string currentPlayer = "";
+            string message = "Connection to Server failed.";
+            int[] shotsFired;
+            while (!gameEnded)
             {
-                string status = "";
-                string message = "Connection to Server failed.";
-                int[] shotsFired;
+                status = "";
+                currentPlayer = "";
+                message = "Connection to Server failed.";
+
+                //Alex muss mal arbeiten
+                //(status, message, currentPlayer, shotsFired) = await HttpBattleshipClient.CurrentTurn(MainWindow.player.name, MainWindow.token);
                 (status, message, shotsFired) = await HttpBattleshipClient.CurrentTurn(MainWindow.player.name, MainWindow.token);
-                //Logic to determine whose turn
-                //Logic to set ships on fire (apparently pirates were better at this precise task)
-                currentturn = true;
+                if(currentPlayer.Equals(MainWindow.player.name))
+                {
+                    currentturn = true;
+                }
                 Thread.Sleep(1000);
             }
         }
         private async void LeaveBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            //Logic to tell opponent that im a loser :(
+            //Is Dequeue == leave?
             await HttpBattleshipClient.Dequeue(MainWindow.player.name, MainWindow.token);
             Window.GetWindow(this).DataContext = new QueueView();
-            //Dequeue and go back to Queue or smth idk xD
         }
     }
 }
