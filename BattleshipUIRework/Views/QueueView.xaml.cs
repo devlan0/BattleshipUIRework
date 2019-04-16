@@ -79,8 +79,8 @@ namespace BattleshipUIRework.Views
                                 //
                                 //
                                 // MAY CREATE ERROR, need server for further testing
-                                //
-                                //
+                                //  I
+                                //  V
 
                                 Array.Copy(MainWindow.player.field, 0, MainWindow.player.originalField, 0, MainWindow.player.field.Length);
                             }

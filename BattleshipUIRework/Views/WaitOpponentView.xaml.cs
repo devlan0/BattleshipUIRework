@@ -44,5 +44,10 @@ namespace BattleshipUIRework.Views
             }
             ErrorLabel.Content = message;
         }
+        private async void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            await HttpBattleshipClient.Dequeue(MainWindow.player.name, MainWindow.token);
+            Window.GetWindow(this).DataContext = new QueueView();
+        }
     }
 }
