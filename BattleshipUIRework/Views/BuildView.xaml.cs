@@ -96,10 +96,7 @@ namespace BattleshipUIRework.Views
             
             if(status.Equals("success"))
             {
-                Dispatcher.Invoke(() =>
-                {
-                    Window.GetWindow(this).DataContext = new GameView();
-                });
+                Window.GetWindow(this).DataContext = new WaitOpponentView();
             }
             else
             {

@@ -118,7 +118,7 @@ namespace BattleshipUIRework.Views
         {
             string status = "";
             string currentPlayer = "";
-            string message = "Connection to Server failed.";
+            string message;
             int[] shotsFired;
             while (!gameEnded)
             {
@@ -127,8 +127,8 @@ namespace BattleshipUIRework.Views
                 message = "Connection to Server failed.";
 
                 //Alex muss mal arbeiten
-                //(status, message, currentPlayer, shotsFired) = await HttpBattleshipClient.CurrentTurn(MainWindow.player.name, MainWindow.token);
-                (status, message, shotsFired) = await HttpBattleshipClient.CurrentTurn(MainWindow.player.name, MainWindow.token);
+                (status, message, currentPlayer, shotsFired) = await HttpBattleshipClient.CurrentTurn(MainWindow.player.name, MainWindow.token);
+                //(status, message, shotsFired) = await HttpBattleshipClient.CurrentTurn(MainWindow.player.name, MainWindow.token);
                 if(currentPlayer.Equals(MainWindow.player.name))
                 {
                     currentturn = true;

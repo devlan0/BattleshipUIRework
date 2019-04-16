@@ -38,6 +38,7 @@ namespace BattleshipUIRework
 
         public MainWindow(string username, string token)
         {
+            colorDic = new Dictionary<int, SolidColorBrush>();
             colorDic.Add(0, water);
             colorDic.Add(1, land);
             colorDic.Add(2, ship);
