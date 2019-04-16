@@ -29,10 +29,16 @@ namespace BattleshipUIRework.Views
         }
         private async void waitingLoop()
         {
-            string status = "";
+            string status = "success";
             string message = "Connection to Server failed";
             int isReady = 0;
-            int[] enemyMap;
+            int[] enemyMap = new int[(int) Math.Pow(MainWindow.size,2)];
+            //
+            //
+            // Debug Mode missing
+            //
+            //
+
             while (status.Equals("success") && isReady == 0)
             {
                 (status, message, isReady, enemyMap) = await HttpBattleshipClient.OpponentReady(MainWindow.player.name, MainWindow.token);
@@ -40,9 +46,14 @@ namespace BattleshipUIRework.Views
             }
             if (isReady == 1)
             {
+                MainWindow.opponent.field = enemyMap;
                 Window.GetWindow(this).DataContext = new GameView();
             }
+            ProgressRing.IsActive = false;
             ErrorLabel.Content = message;
+
+            //Some Code if Server fails
+            // fuck you hitler!
         }
         private async void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
         {

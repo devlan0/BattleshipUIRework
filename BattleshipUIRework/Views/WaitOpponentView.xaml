@@ -35,7 +35,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Name="ErrorLabel" Content="" Grid.Column="4" HorizontalAlignment="Stretch" Grid.Row="7" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Width="185" Foreground="Red" Margin="10" HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"/>
-        <Controls:ProgressRing x:Name="ProgressRing" IsActive="True" Grid.ColumnSpan="2" Grid.Column="4" Grid.Row="4" Grid.RowSpan="5" Foreground="#CCFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"/>
+        <Controls:ProgressRing x:Name="ProgressRing" IsActive="True" Grid.ColumnSpan="2" Grid.Column="4" Grid.Row="6" Grid.RowSpan="2" Foreground="#CCFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         <Image x:Name="loadingGif" Stretch="Fill" Grid.ColumnSpan="3" Grid.Column="3" HorizontalAlignment="Stretch" Grid.RowSpan="2" VerticalAlignment="Stretch" gif:AnimationBehavior.SourceUri="/Icons/loading.gif" Margin="101.8,0,0.4,0.2" />
         <Button x:Name="LogoutBtn" Grid.ColumnSpan="2" Content="Logout" Grid.Column="8" Margin="10" Grid.Row="9" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="LogoutBtn_Clicked"/>
         <TextBlock Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" TextWrapping="Wrap" Text="Waiting for Opponent ..." VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Grid.ColumnSpan="6" FontSize="48"/>

@@ -77,6 +77,11 @@ namespace BattleshipUIRework.Views
             MainWindow.player.buttonField[index].Background = MainWindow.ship;
 
             //more building logic
+
+            // ein Schlachtschiff (5 Kästchen)
+            // zwei Kreuzer(je 4 Kästchen)
+            // drei Zerstörer(je 3 Kästchen)
+            // vier U-Boote(je 2 Kästchen)
         }
 
 
