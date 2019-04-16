@@ -329,7 +329,7 @@ namespace BattleshipUIRework.Models
         {
             string status = "";
             string message = "";
-            string username = "";
+            string opp_usr = "";
             int[] shotsFired = null;
             using (HttpClient client = new HttpClient())
             {
@@ -346,7 +346,7 @@ namespace BattleshipUIRework.Models
                     if (status.Equals("success"))
                     {
                         shotsFired = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
-                        username = jobj.Property("username")?.Value?.ToString();
+                        opp_usr = jobj.Property("username")?.Value?.ToString();
                     }
                 }
                 catch (HttpRequestException e)
@@ -355,7 +355,7 @@ namespace BattleshipUIRework.Models
                     Console.WriteLine(e.Message);
                 }
             }
-            return (status, message, username, shotsFired);
+            return (status, message, opp_usr, shotsFired);
         }
 
         #endregion
