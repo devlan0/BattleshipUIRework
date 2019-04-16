@@ -236,10 +236,11 @@ namespace BattleshipUIRework.Models
         /// <param name="username"></param>
         /// <param name="token"></param>
         /// <returns>status, message, and positions of the opponent's battleships received from server</returns>
-        public async static Task<(string, string, int[])> OpponentReady(string username, string token)
+        public async static Task<(string, string, int, int[])> OpponentReady(string username, string token)
         {
             string status = "";
             string message = "";
+            int opp_status = 0;
             int[] battleship_positions = null;
 
             using (HttpClient client = new HttpClient())
@@ -259,6 +260,7 @@ namespace BattleshipUIRework.Models
                     if (status.Equals("success"))
                     {
                         battleship_positions = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
+                        opp_status = jobj.Property("opp_status")?.Value?.ToObject<int>();
                     }
 
                 }
@@ -268,7 +270,7 @@ namespace BattleshipUIRework.Models
                     Console.WriteLine(e.Message);
                 }
 
-                return (status, message, battleship_positions);
+                return (status, message, opp_status, battleship_positions);
             }
         }
 
@@ -323,10 +325,11 @@ namespace BattleshipUIRework.Models
         /// Checks, if its the players turn. Returns a status string and a tuple array containing the shots fired by the opponent
         /// </summary>
         /// <returns>A tuple consisting of the status, message and shotsfired received from the server</returns>
-        public async static Task<(string, string, int[])> CurrentTurn(string username, string token)
+        public async static Task<(string, string, string, int[])> CurrentTurn(string username, string token)
         {
             string status = "";
             string message = "";
+            string username = "";
             int[] shotsFired = null;
             using (HttpClient client = new HttpClient())
             {
@@ -343,6 +346,7 @@ namespace BattleshipUIRework.Models
                     if (status.Equals("success"))
                     {
                         shotsFired = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
+                        username = jobj.Property("username")?.Value?.ToObject<string>() ?? throw new NullReferenceException("Empty string!");
                     }
                 }
                 catch (HttpRequestException e)
@@ -351,7 +355,7 @@ namespace BattleshipUIRework.Models
                     Console.WriteLine(e.Message);
                 }
             }
-            return (status, message, shotsFired);
+            return (status, message, username, shotsFired);
         }
 
         #endregion
