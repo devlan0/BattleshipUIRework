@@ -260,7 +260,7 @@ namespace BattleshipUIRework.Models
                     if (status.Equals("success"))
                     {
                         battleship_positions = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
-                        opp_status = jobj.Property("opp_status")?.Value?.ToInteger();
+                        //opp_status = jobj.Property("opp_status")?.Value?.ToInteger();
                     }
 
                 }
@@ -329,7 +329,7 @@ namespace BattleshipUIRework.Models
         {
             string status = "";
             string message = "";
-            string opp_usr = "";
+            string opponent = "";
             int[] shotsFired = null;
             using (HttpClient client = new HttpClient())
             {
@@ -337,6 +337,7 @@ namespace BattleshipUIRework.Models
                 client.DefaultRequestHeaders.Add("token", token);
                 try
                 {
+                    //TODO: Adjust opponent variable
                     HttpResponseMessage response = await client.GetAsync(uri + "/withVal/currentTurn");
                     response.EnsureSuccessStatusCode();
                     string server_json = await response.Content.ReadAsStringAsync();
@@ -346,7 +347,7 @@ namespace BattleshipUIRework.Models
                     if (status.Equals("success"))
                     {
                         shotsFired = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
-                        opp_usr = jobj.Property("username")?.Value?.ToString();
+                        opponent = jobj.Property("opponent")?.Value?.ToString();
                     }
                 }
                 catch (HttpRequestException e)
@@ -355,7 +356,7 @@ namespace BattleshipUIRework.Models
                     Console.WriteLine(e.Message);
                 }
             }
-            return (status, message, opp_usr, shotsFired);
+            return (status, message, opponent, shotsFired);
         }
 
         #endregion
