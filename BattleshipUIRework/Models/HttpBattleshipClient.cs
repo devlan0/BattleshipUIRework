@@ -260,7 +260,7 @@ namespace BattleshipUIRework.Models
                     if (status.Equals("success"))
                     {
                         battleship_positions = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
-                        opp_status = jobj.Property("opp_status")?.Value?.ToObject<int>();
+                        opp_status = jobj.Property("opp_status")?.Value?.ToInteger();
                     }
 
                 }
@@ -346,7 +346,7 @@ namespace BattleshipUIRework.Models
                     if (status.Equals("success"))
                     {
                         shotsFired = jobj.Property("map")?.Value?.ToObject<int[]>() ?? throw new NullReferenceException("Empty array!");
-                        username = jobj.Property("username")?.Value?.ToObject<string>() ?? throw new NullReferenceException("Empty string!");
+                        username = jobj.Property("username")?.Value?.ToString();
                     }
                 }
                 catch (HttpRequestException e)
