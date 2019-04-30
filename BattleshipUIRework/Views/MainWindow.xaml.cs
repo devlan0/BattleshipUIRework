@@ -22,6 +22,7 @@ namespace BattleshipUIRework
         public static SolidColorBrush water = new SolidColorBrush(Color.FromArgb(255, 174, 197, 214));
         public static SolidColorBrush land = new SolidColorBrush(Color.FromArgb(255, 233, 240, 116));
         public static SolidColorBrush ship = new SolidColorBrush(Color.FromArgb(255, 128, 128, 128));
+        public static SolidColorBrush preselect = new SolidColorBrush(Color.FromArgb(255, 192, 192, 192));
         public static SolidColorBrush hit = new SolidColorBrush(Color.FromArgb(255, 212, 4, 36));
         public static SolidColorBrush miss = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
         public static Dictionary<int, SolidColorBrush> colorDic = new Dictionary<int, SolidColorBrush>();

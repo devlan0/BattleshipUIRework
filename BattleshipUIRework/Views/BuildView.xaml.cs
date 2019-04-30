@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,6 +13,10 @@ namespace BattleshipUIRework.Views
     /// </summary>
     public partial class BuildView : UserControl
     {
+        private static int[] ships = { 0, 4, 3, 2, 1 };
+        private static List<int> possibleTileList = new List<int>();
+        private static int rekurs = 0;
+        private static int prevIndex;
         public BuildView()
         {
             InitializeComponent();
@@ -47,7 +52,7 @@ namespace BattleshipUIRework.Views
 
             //Generate Buttons
             Button[] buttons = new Button[(int)Math.Pow(MainWindow.size, 2)];
-            for (int i = 0; i < Math.Pow(MainWindow.size,2); i++)
+            for (int i = 0; i < Math.Pow(MainWindow.size, 2); i++)
             {
                 Button button = new Button();
                 button.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -73,17 +78,96 @@ namespace BattleshipUIRework.Views
         {
             Button send = (Button)sender;
             int index = Array.IndexOf(MainWindow.player.buttonField, send);
-            MainWindow.player.field[index] = 2;
-            MainWindow.player.buttonField[index].Background = MainWindow.ship;
-
+            // MainWindow.player.field[index] = 2;
+            if(possibleTileList.Contains(index))
+            {
+                //TODO clear possibleTileList
+                //Color from prevIndex up to Index
+            }
+            else
+            {
+                if (ships[1] > 0)
+                {
+                    MainWindow.player.buttonField[index].Background = MainWindow.preselect;
+                    possibleTileList.Add(index);
+                }
+                for (int i = 0; i < 4; i++)
+                {
+                    rekurs = 0;
+                }
+            }
             //more building logic
 
             // ein Schlachtschiff (5 Kästchen)
             // zwei Kreuzer(je 4 Kästchen)
             // drei Zerstörer(je 3 Kästchen)
             // vier U-Boote(je 2 Kästchen)
+            prevIndex = index;
         }
+        private static void shipSim(string direction, int step, int index)
+        {
+            int x = index % MainWindow.size;
+            int y = (int)(index / MainWindow.size);
 
+            //TODO: Better implementation for directional checks
+            if (direction.Equals("u"))
+            {
+                if (y == 0)
+                {
+                    shipSim("r", 0, index);
+                }
+                else
+                {
+                    index -= 15;
+                    if(allowShip(index) )
+                    {
+                        if(ships[step] != 0)
+                        {
+                            MainWindow.player.buttonField[index].Background = MainWindow.preselect;
+                            possibleTileList.Add(index);
+                        }
+                        shipSim(direction, step++, index);
+
+                    }
+                }
+            }
+        }
+        private static bool allowShip(int index)
+        {
+
+            int x = index % MainWindow.size;
+            int y = (int)(index / MainWindow.size);
+
+            int sum = MainWindow.player.field[index];
+
+            if (x < 14)
+            {
+                sum += MainWindow.player.field[index + 1];
+                if (y > 0)
+                {
+                    sum += MainWindow.player.field[index - 15];
+                    sum += MainWindow.player.field[index - 14];
+                }
+                if (y < 14)
+                {
+                    sum += MainWindow.player.field[index + 15];
+                    sum += MainWindow.player.field[index + 16];
+                }
+            }
+            if (x > 0)
+            {
+                sum += MainWindow.player.field[index - 1];
+                if (y > 0)
+                {
+                    sum += MainWindow.player.field[index - 16];
+                }
+                if (y < 14)
+                {
+                    sum += MainWindow.player.field[index + 14];
+                }
+            }
+            return sum == 0;
+        }
 
 
         private async void SendShipsBtn_Clicked(object sender, RoutedEventArgs e)
@@ -98,8 +182,8 @@ namespace BattleshipUIRework.Views
             {
                 (status, message) = await HttpBattleshipClient.SubmitBattleships(MainWindow.player.field, MainWindow.player.name, MainWindow.token);
             }
-            
-            if(status.Equals("success"))
+
+            if (status.Equals("success"))
             {
                 Window.GetWindow(this).DataContext = new WaitOpponentView();
             }
@@ -108,7 +192,7 @@ namespace BattleshipUIRework.Views
                 ErrorLabel.Content = message;
                 Array.Copy(MainWindow.player.originalField, 0, MainWindow.player.field, 0, MainWindow.player.originalField.Length);
                 int i = 0;
-                foreach(Button button in MainWindow.player.buttonField)
+                foreach (Button button in MainWindow.player.buttonField)
                 {
                     button.Background = MainWindow.colorDic[MainWindow.player.field[i]];
                     i++;

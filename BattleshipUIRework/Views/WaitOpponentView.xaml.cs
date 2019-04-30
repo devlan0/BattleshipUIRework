@@ -35,7 +35,7 @@ namespace BattleshipUIRework.Views
             int[] enemyMap = new int[(int) Math.Pow(MainWindow.size,2)];
             //
             //
-            // Debug Mode missing
+            // TODO: Debug Mode missing
             //
             //
 
@@ -52,8 +52,8 @@ namespace BattleshipUIRework.Views
             ProgressRing.IsActive = false;
             ErrorLabel.Content = message;
 
-            //Some Code if Server fails
-            // fuck you hitler!
+            // TODO: Some Code if Server fails
+            // Throw back to QueueView maybe?
         }
         private async void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
         {
